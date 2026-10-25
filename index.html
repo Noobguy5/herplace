@@ -1,0 +1,3049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEHAK — A Museum of Little Forevers</title>
+<meta name="description" content="A private museum of photographs, flowers, letters and futures — curated with love for Mehak by Piyush.">
+<meta name="theme-color" content="#F9F5F7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MEHAK — A MUSEUM OF LITTLE FOREVERs
+   Design system, entrance, navigation, atrium
+   ============================================================ */
+
+:root{
+  --ivory:#F9F5F7;
+  --ivory-bright:#FFFDFE;
+  --blush:#EBCBD8;
+  --blush-deep:#DCAFC2;
+  --lavender:#DCD3F0;
+  --sage:#C9E4DF;
+  --plum:#38313D;
+  --plum-soft:rgba(56,49,61,.74);
+  --plum-faint:rgba(56,49,61,.42);
+  --line:rgba(56,49,61,.13);
+  --line-soft:rgba(56,49,61,.07);
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Jost","Helvetica Neue",Arial,sans-serif;
+  --hand:"Caveat","Segoe Script",cursive;
+  --shadow-soft:0 30px 60px -42px rgba(56,49,61,.45);
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ivory);
+  color:var(--plum);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:16px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.locked{overflow:hidden}
+img,video,svg{max-width:100%}
+img{display:block}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+::selection{background:var(--blush);color:var(--plum)}
+:focus-visible{outline:2px solid var(--plum);outline-offset:4px}
+[hidden]{display:none!important}
+
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+.wrap{width:min(1280px,100% - clamp(32px,10vw,140px));margin-inline:auto}
+.eyebrow{
+  display:flex;align-items:center;gap:13px;
+  margin:0;font-size:10px;font-weight:400;
+  letter-spacing:.32em;text-transform:uppercase;
+  color:var(--plum-faint);
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--plum-faint);flex:none}
+.eyebrow--center{justify-content:center}
+.eyebrow--center::after{content:"";width:26px;height:1px;background:var(--plum-faint);flex:none}
+h1,h2,h3,h4,p{margin-top:0}
+h2{
+  margin:22px 0 0;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.7rem,5.4vw,5rem);
+  line-height:.98;
+  letter-spacing:-.015em;
+}
+h2 em{font-weight:300;font-style:italic;color:#67586d}
+.lede{
+  max-width:570px;margin:26px 0 0;
+  font-size:15.5px;line-height:1.85;color:var(--plum-soft);
+  font-weight:300;
+}
+.lede--small{font-size:13.5px;line-height:1.9}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:16px;
+  min-height:52px;padding:15px 30px;
+  border:1px solid rgba(56,49,61,.3);border-radius:999px;
+  background:transparent;color:var(--plum);
+  font-size:9.5px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;
+  transition:background .45s var(--ease),color .45s var(--ease),border-color .45s var(--ease),transform .45s var(--ease);
+}
+.btn svg{width:14px;height:14px;flex:none;transition:transform .45s var(--ease)}
+.btn:hover{background:var(--plum);color:var(--ivory);border-color:var(--plum)}
+.btn:hover svg{transform:translateX(4px)}
+.btn--solid{background:var(--plum);color:var(--ivory);border-color:var(--plum)}
+.btn--solid:hover{background:#4b4252;border-color:#4b4252}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn[disabled]:hover{background:transparent;color:var(--plum);border-color:rgba(56,49,61,.3)}
+.text-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--plum-soft);transition:color .3s;
+}
+.text-btn:hover{color:var(--plum)}
+.text-btn svg{width:15px;height:15px}
+
+/* ---------- Entrance ---------- */
+.entrance{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(90% 68% at 50% 104%, rgba(235,203,216,.62) 0%, rgba(235,203,216,0) 58%),
+    radial-gradient(70% 58% at 8% 14%, rgba(220,211,240,.6) 0%, rgba(220,211,240,0) 62%),
+    radial-gradient(64% 54% at 94% 20%, rgba(201,228,223,.5) 0%, rgba(201,228,223,0) 62%),
+    var(--ivory);
+  opacity:1;visibility:visible;
+  transition:opacity .95s ease,visibility 0s linear .95s;
+}
+body.entered .entrance{opacity:0;visibility:hidden;pointer-events:none}
+.entrance__architecture{position:absolute;inset:0;pointer-events:none}
+.entrance__arch{
+  position:absolute;left:50%;top:8%;transform:translateX(-50%);
+  width:min(660px,78vw);height:82%;
+  border:1px solid rgba(56,49,61,.14);
+  border-radius:50% 50% 0 0/38% 38% 0 0;
+}
+.entrance__arch::before{
+  content:"";position:absolute;inset:22px;
+  border:1px solid rgba(56,49,61,.09);
+  border-radius:inherit;
+  background:linear-gradient(178deg,rgba(220,211,240,.22),rgba(235,203,216,.12) 58%,rgba(249,245,247,0) 88%);
+  box-shadow:inset 0 -40px 90px -50px rgba(56,49,61,.18);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 58%,rgba(0,0,0,0) 96%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 58%,rgba(0,0,0,0) 96%);
+}
+.entrance__arch::after{
+  content:"";position:absolute;inset:58px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:inherit;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,0) 92%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,0) 92%);
+}
+.entrance__column{
+  position:absolute;top:0;bottom:0;width:clamp(42px,6vw,88px);
+  opacity:.9;
+  background:linear-gradient(90deg,rgba(56,49,61,.05),rgba(255,255,255,.3) 46%,rgba(56,49,61,.04));
+  border-inline:1px solid rgba(56,49,61,.055);
+}
+.entrance__column--l{left:clamp(18px,4vw,68px)}
+.entrance__column--r{right:clamp(18px,4vw,68px)}
+.entrance__floor{
+  position:absolute;left:50%;bottom:5%;transform:translateX(-50%);
+  width:min(780px,88vw);height:16vh;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(56,49,61,.11) 0%,rgba(56,49,61,0) 70%);
+  filter:blur(10px);
+}
+.entrance__botanical{
+  position:absolute;bottom:-2%;color:rgba(56,49,61,.42);
+  width:clamp(120px,17vw,230px);height:auto;
+  animation:swaySlow 11s ease-in-out infinite;
+  transform-origin:50% 100%;
+}
+.entrance__botanical--l{left:clamp(-14px,1vw,26px)}
+.entrance__botanical--r{right:clamp(-10px,2vw,40px);transform:scaleX(-1);animation-delay:-4s;opacity:.7}
+@keyframes swaySlow{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+.entrance__botanical--r{animation-name:swaySlowR}
+@keyframes swaySlowR{0%,100%{transform:scaleX(-1) rotate(-1.6deg)}50%{transform:scaleX(-1) rotate(1.6deg)}}
+
+.mote{
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 0 14px 3px rgba(255,240,247,.7);
+  opacity:0;animation:drift 15s linear infinite;
+}
+.mote:nth-child(1){left:18%;top:70%;animation-delay:1s;animation-duration:17s}
+.mote:nth-child(2){left:27%;top:55%;animation-delay:6s;animation-duration:19s}
+.mote:nth-child(3){left:37%;top:78%;animation-delay:3s;animation-duration:14s}
+.mote:nth-child(4){left:48%;top:38%;animation-delay:8s;animation-duration:18s}
+.mote:nth-child(5){left:58%;top:66%;animation-delay:2s;animation-duration:16s}
+.mote:nth-child(6){left:69%;top:48%;animation-delay:9s;animation-duration:20s}
+.mote:nth-child(7){left:78%;top:74%;animation-delay:5s;animation-duration:15s}
+.mote:nth-child(8){left:86%;top:35%;animation-delay:12s;animation-duration:21s}
+@keyframes drift{
+  0%{transform:translate3d(0,20px,0);opacity:0}
+  15%{opacity:.75}
+  70%{opacity:.5}
+  100%{transform:translate3d(-26px,-150px,0);opacity:0}
+}
+
+.entrance__content{
+  position:relative;z-index:2;text-align:center;
+  padding:96px 24px 84px;max-width:900px;
+  animation:contentRise 1.5s var(--ease) both;
+}
+@keyframes contentRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.entrance__eyebrow{
+  margin:0 0 clamp(26px,4vh,44px);
+  font-size:9px;letter-spacing:.44em;text-transform:uppercase;color:var(--plum-faint);
+}
+.entrance__title{
+  margin:0;
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(4.4rem,13.5vw,9.6rem);
+  line-height:.82;letter-spacing:.2em;
+  padding-left:.2em;
+}
+.entrance__subtitle{
+  margin:clamp(22px,3.4vh,34px) 0 0;
+  font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(1.2rem,2.6vw,1.85rem);
+  letter-spacing:.04em;color:rgba(56,49,61,.78);
+}
+.entrance__rule{
+  width:1px;height:clamp(28px,5vh,46px);
+  margin:clamp(22px,3.6vh,34px) auto;
+  background:linear-gradient(180deg,rgba(56,49,61,.32),rgba(56,49,61,0));
+}
+.entrance__curator{
+  margin:0 0 clamp(28px,4.4vh,42px);
+  font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--plum-faint);
+}
+.entrance__hint{
+  margin:clamp(24px,4vh,36px) 0 0;
+  font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(56,49,61,.3);
+}
+
+/* ---------- Navigation ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:15px clamp(18px,4vw,52px);
+  background:rgba(249,245,247,.82);
+  border-bottom:1px solid rgba(56,49,61,.07);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  opacity:0;transform:translateY(-101%);pointer-events:none;
+  transition:opacity .7s ease,transform .8s var(--ease);
+}
+body.entered .nav{opacity:1;transform:none;pointer-events:auto}
+.nav__brand{display:flex;flex-direction:column;gap:2px;text-align:left}
+.nav__brand strong{
+  font-family:var(--serif);font-weight:400;font-size:16px;
+  letter-spacing:.3em;line-height:1;color:var(--plum);
+}
+.nav__brand small{
+  font-size:7.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--plum-faint);
+}
+.nav__right{display:flex;align-items:center;gap:clamp(14px,2.6vw,34px)}
+.nav__atrium{
+  font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--plum-soft);
+  transition:color .3s;
+}
+.nav__atrium:hover{color:var(--plum)}
+.nav__menu-btn{
+  display:flex;align-items:center;gap:11px;
+  font-size:9px;letter-spacing:.26em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:999px;
+  padding:10px 16px;transition:background .3s,border-color .3s;
+}
+.nav__menu-btn:hover{background:rgba(235,203,216,.25);border-color:rgba(56,49,61,.24)}
+.menu-icon{position:relative;width:12px;height:8px;display:block}
+.menu-icon::before,.menu-icon::after{
+  content:"";position:absolute;left:0;width:100%;height:1px;background:currentColor;
+  transition:transform .35s var(--ease),top .35s var(--ease)
+}
+.menu-icon::before{top:1px}
+.menu-icon::after{top:6px}
+.nav__menu-btn[aria-expanded="true"] .menu-icon::before{top:4px;transform:rotate(45deg)}
+.nav__menu-btn[aria-expanded="true"] .menu-icon::after{top:4px;transform:rotate(-45deg)}
+
+.menu-panel{
+  position:fixed;top:70px;right:clamp(18px,4vw,52px);z-index:79;
+  width:min(368px,calc(100vw - 36px));
+  padding:26px 26px 18px;
+  background:rgba(255,253,254,.96);
+  border:1px solid var(--line);border-radius:3px;
+  box-shadow:0 34px 80px -34px rgba(56,49,61,.4);
+  backdrop-filter:blur(22px);
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .35s ease,transform .4s var(--ease),visibility 0s linear .4s;
+}
+.menu-panel.is-open{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.menu-panel__head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:14px;border-bottom:1px solid var(--line);
+}
+.menu-panel__head p{margin:0;font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--plum-faint)}
+.menu-panel__head span{font-family:var(--serif);font-size:12px;color:var(--plum-faint)}
+.menu-panel__links{display:flex;flex-direction:column;padding-top:6px}
+.menu-panel__links button{
+  display:flex;align-items:baseline;gap:14px;
+  padding:12px 2px;text-align:left;
+  border-bottom:1px solid var(--line-soft);
+  font-family:var(--serif);font-size:19px;line-height:1.2;
+  transition:padding-left .35s var(--ease),color .3s;
+}
+.menu-panel__links button:last-child{border-bottom:0}
+.menu-panel__links button span{
+  font-family:var(--sans);font-size:8px;letter-spacing:.18em;color:var(--plum-faint);min-width:16px;
+}
+.menu-panel__links button:hover{padding-left:9px;color:#6b5a72}
+.menu-panel__links button[aria-current="true"]{padding-left:9px;color:#6b5a72;font-style:italic}
+.menu-panel__foot{
+  margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line-soft);
+  font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-faint);
+}
+
+/* ---------- Room shell ---------- */
+main{position:relative;z-index:1}
+.room{position:relative;padding:clamp(92px,11vw,150px) 0;scroll-margin-top:72px;overflow:hidden}
+.room + .room{border-top:1px solid var(--line-soft)}
+.room::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none}
+.room > .wrap{position:relative;z-index:1}
+.room__numeral{
+  position:absolute;top:clamp(20px,4vw,48px);right:clamp(10px,3vw,52px);z-index:0;
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(110px,17vw,250px);line-height:.7;
+  color:rgba(56,49,61,.035);pointer-events:none;user-select:none;
+}
+.room-head{max-width:760px;margin-bottom:clamp(44px,6.4vw,80px)}
+.room-head--center{margin-inline:auto;text-align:center}
+.room-head--center .eyebrow{justify-content:center}
+.room-head--center .eyebrow::after{content:"";width:26px;height:1px;background:var(--plum-faint)}
+.room-head--center .lede{margin-inline:auto}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 1s ease,transform 1.1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- Atrium ---------- */
+.room--atrium{
+  padding-top:clamp(130px,17vh,188px);
+  padding-bottom:clamp(70px,8vw,110px);
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.room--atrium::after{
+  background:
+    radial-gradient(54% 42% at 50% 0%,rgba(220,211,240,.42) 0%,rgba(220,211,240,0) 70%),
+    radial-gradient(46% 34% at 96% 48%,rgba(201,228,223,.34) 0%,rgba(201,228,223,0) 72%),
+    radial-gradient(44% 32% at 4% 58%,rgba(235,203,216,.34) 0%,rgba(235,203,216,0) 72%);
+}
+.atrium-arch{
+  position:absolute;left:50%;top:6%;transform:translateX(-50%);z-index:0;
+  width:min(720px,82vw);height:min(540px,58vh);
+  border:1px solid rgba(56,49,61,.075);
+  border-radius:50% 50% 0 0/56% 56% 0 0;
+  pointer-events:none;
+}
+.atrium-arch::before{
+  content:"";position:absolute;inset:24px;border:1px solid rgba(56,49,61,.05);
+  border-radius:inherit;
+}
+.atrium-arch::after{
+  content:"";position:absolute;inset:60px;border:1px solid rgba(255,255,255,.6);
+  border-radius:inherit;
+}
+.atrium-head{text-align:center;max-width:820px;margin:0 auto clamp(44px,6vw,68px)}
+.atrium-head h2{font-size:clamp(2.9rem,6vw,5.4rem)}
+.atrium-head .lede{margin-inline:auto;max-width:520px}
+
+.atrium-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:clamp(12px,1.6vw,20px);
+  align-items:stretch;
+}
+.room-card{
+  --tint:rgba(235,203,216,.34);
+  position:relative;overflow:hidden;isolation:isolate;
+  display:flex;flex-direction:column;justify-content:space-between;gap:26px;
+  min-height:250px;padding:clamp(20px,2.4vw,30px);
+  text-align:left;
+  border:1px solid rgba(56,49,61,.1);border-radius:4px;
+  background:linear-gradient(152deg,var(--tint) 0%,rgba(255,253,254,.56) 76%);
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .4s;
+}
+.room-card::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(80% 90% at 100% 0%,rgba(255,255,255,.5),transparent 60%);
+  opacity:.7;transition:opacity .5s;
+}
+.room-card:hover{transform:translateY(-7px);border-color:rgba(56,49,61,.2);box-shadow:0 32px 58px -38px rgba(56,49,61,.5)}
+.room-card:hover::before{opacity:1}
+.room-card__arch{
+  position:absolute;right:-34px;bottom:-56px;z-index:-1;
+  width:190px;height:250px;
+  border:1px solid rgba(56,49,61,.1);
+  border-radius:999px 999px 0 0;
+  opacity:.6;transition:transform .7s var(--ease),opacity .5s;
+}
+.room-card:hover .room-card__arch{transform:translateY(-8px);opacity:.85}
+.room-card__top{display:flex;justify-content:space-between;align-items:flex-start}
+.room-card__no{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-faint)}
+.room-card__glyph{width:24px;height:24px;color:rgba(56,49,61,.45)}
+.room-card__kicker{
+  display:block;margin-bottom:9px;
+  font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:var(--plum-faint);
+}
+.room-card__title{
+  display:block;font-family:var(--serif);font-weight:300;
+  font-size:clamp(1.55rem,2.5vw,2.35rem);line-height:1.02;letter-spacing:-.01em;
+}
+.room-card__desc{
+  display:block;margin-top:13px;max-width:31ch;
+  font-size:12.5px;line-height:1.7;color:var(--plum-soft);
+}
+.room-card__bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.room-card__open{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-soft);
+}
+.room-card__arrow{
+  width:36px;height:36px;flex:none;border:1px solid rgba(56,49,61,.22);border-radius:50%;
+  display:grid;place-items:center;
+  transition:background .4s,color .4s,border-color .4s,transform .5s var(--ease);
+}
+.room-card__arrow svg{width:13px;height:13px}
+.room-card:hover .room-card__arrow{background:var(--plum);border-color:var(--plum);color:var(--ivory);transform:rotate(-45deg)}
+.room-card--memory{grid-column:span 7;min-height:330px;--tint:rgba(235,203,216,.44)}
+.room-card--video{grid-column:span 5;min-height:330px;--tint:rgba(220,211,240,.44)}
+.room-card--garden{grid-column:span 4;--tint:rgba(201,228,223,.44)}
+.room-card--letters{grid-column:span 4;--tint:rgba(255,253,254,.7)}
+.room-card--gifts{grid-column:span 4;--tint:rgba(235,203,216,.28)}
+.room-card--future{grid-column:span 6;min-height:225px;--tint:rgba(220,211,240,.3)}
+.room-card--final{grid-column:span 6;min-height:225px;--tint:rgba(201,228,223,.26)}
+
+.atrium-plaque{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 22px;
+  margin-top:clamp(38px,5vw,56px);padding-top:24px;
+  border-top:1px solid var(--line-soft);
+  font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--plum-faint);
+  text-align:center;
+}
+.atrium-plaque .dot{width:3px;height:3px;border-radius:50%;background:var(--blush-deep);opacity:.8}
+.atrium-plaque strong{font-weight:400;color:var(--plum-soft);letter-spacing:.28em}
+
+@media (max-width:960px){
+  .room-card--memory,.room-card--video{grid-column:span 12;min-height:275px}
+  .room-card--garden,.room-card--letters,.room-card--gifts{grid-column:span 4}
+  .room-card--future,.room-card--final{grid-column:span 6}
+  .atrium-arch{height:440px}
+}
+@media (max-width:720px){
+  .wrap{width:calc(100% - 40px)}
+  .nav__atrium{display:none}
+  .nav{padding:13px 20px}
+  .room__numeral{display:none}
+  .room-card--garden,.room-card--letters,.room-card--gifts{grid-column:span 12}
+  .room-card--future,.room-card--final{grid-column:span 12;min-height:210px}
+  .room-card{min-height:220px}
+  .room-card__desc{max-width:38ch}
+  .entrance__botanical{opacity:.32}
+  .entrance__column{display:none}
+}
+@media (max-width:520px){
+  .entrance__title{letter-spacing:.14em;padding-left:.14em}
+  .entrance__arch{width:88vw}
+  .entrance__eyebrow{letter-spacing:.32em}
+  .menu-panel{right:12px;width:calc(100vw - 24px);top:64px}
+}
+@media (max-height:700px){
+  .entrance__content{padding-block:74px 60px}
+  .entrance__title{font-size:clamp(3.6rem,11vw,7rem)}
+  .entrance__rule{height:24px;margin-block:18px}
+  .entrance__eyebrow{margin-bottom:20px}
+  .entrance__curator{margin-bottom:24px}
+  .entrance__hint{margin-top:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<style>
+/* ---------- Shared exhibition pieces ---------- */
+.section-foot{
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  margin-top:clamp(46px,6vw,74px);text-align:center;
+}
+.section-foot__rule{width:1px;height:38px;background:linear-gradient(180deg,rgba(56,49,61,.22),rgba(56,49,61,0));margin-bottom:4px}
+.section-foot__count{font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:var(--plum-faint)}
+.gallery-loading{
+  grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:18px;
+  padding:80px 20px;text-align:center;
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--plum-faint);
+}
+.gallery-loading::after{
+  content:"";width:130px;height:1px;background:linear-gradient(90deg,transparent,rgba(56,49,61,.3),transparent);
+  animation:loadingLine 2s ease-in-out infinite;
+}
+@keyframes loadingLine{0%,100%{opacity:.3;transform:scaleX(.6)}50%{opacity:1;transform:scaleX(1)}}
+.empty-state{
+  grid-column:1/-1;
+  display:flex;flex-direction:column;align-items:center;
+  padding:clamp(48px,7vw,78px) 28px;text-align:center;
+  border:1px solid var(--line-soft);border-radius:4px;
+  background:linear-gradient(160deg,rgba(235,203,216,.18),rgba(220,211,240,.14) 55%,rgba(201,228,223,.15));
+}
+.empty-state svg{width:58px;height:76px;margin-bottom:22px;color:rgba(56,49,61,.4)}
+.empty-state h3{font-family:var(--serif);font-size:clamp(1.65rem,2.8vw,2.2rem);font-weight:300;margin:0 0 10px;line-height:1.1}
+.empty-state p{margin:0;max-width:40ch;font-size:13px;line-height:1.8;color:var(--plum-soft)}
+
+/* ---------- Memory Gallery ---------- */
+.room--memory::after{
+  background:radial-gradient(52% 40% at 4% 4%,rgba(235,203,216,.4) 0%,rgba(235,203,216,0) 72%);
+}
+.editorial-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:clamp(18px,3vw,34px) clamp(14px,2.2vw,28px);
+  align-items:start;
+}
+.photo{margin:0;min-width:0}
+.photo--slot-0{grid-column:1 / span 7;grid-row:1 / span 2;align-self:start}
+.photo--slot-1{grid-column:8 / span 5;grid-row:1}
+.photo--slot-2{grid-column:8 / span 5;grid-row:2}
+.photo--slot-3{grid-column:1 / span 4;grid-row:3}
+.photo--slot-4{grid-column:5 / span 4;grid-row:3;margin-top:clamp(22px,3.4vw,44px)}
+.photo--slot-5{grid-column:9 / span 4;grid-row:3}
+.photo--slot-6{grid-column:3 / span 7;grid-row:4;margin-top:clamp(28px,4vw,56px)}
+.photo__frame{
+  position:relative;display:block;width:100%;
+  padding:clamp(7px,.9vw,12px);
+  background:var(--ivory-bright);
+  border:1px solid rgba(56,49,61,.1);
+  box-shadow:0 26px 50px -40px rgba(56,49,61,.55);
+  transition:box-shadow .55s var(--ease),transform .55s var(--ease);
+  cursor:zoom-in;overflow:hidden;
+}
+.photo__frame::after{
+  content:"";position:absolute;inset:clamp(7px,.9vw,12px);
+  border:1px solid rgba(255,255,255,.4);pointer-events:none;
+}
+.photo__frame img{
+  width:100%;height:auto;display:block;
+  background:#EFE8ED;
+  transition:transform 1.1s var(--ease),opacity .6s ease;
+}
+.photo__frame:hover{box-shadow:0 38px 70px -42px rgba(56,49,61,.62);transform:translateY(-4px)}
+.photo__frame:hover img{transform:scale(1.018)}
+.photo--bare .photo__frame{padding:0;background:transparent;border:0;box-shadow:none}
+.photo--bare .photo__frame::after{inset:0;border-color:rgba(255,255,255,.22)}
+.photo--bare .photo__frame:hover{box-shadow:0 30px 55px -40px rgba(56,49,61,.5)}
+.photo__label{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:11px;padding-inline:2px;
+  font-size:7.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(56,49,61,.4);
+}
+.photo__label .hairline{flex:1;height:1px;background:rgba(56,49,61,.09)}
+
+/* ---------- Video Gallery ---------- */
+.room--video::after{
+  background:
+    radial-gradient(48% 42% at 96% 8%,rgba(220,211,240,.45) 0%,rgba(220,211,240,0) 72%),
+    radial-gradient(38% 32% at 6% 84%,rgba(201,228,223,.3) 0%,rgba(201,228,223,0) 72%);
+}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,24px)}
+.video-plate{
+  position:relative;display:block;width:100%;aspect-ratio:4/5;overflow:hidden;
+  border:1px solid rgba(56,49,61,.12);border-radius:2px;
+  background:linear-gradient(155deg,rgba(220,211,240,.4),rgba(235,203,216,.26));
+  text-align:left;isolation:isolate;
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease);
+}
+.video-plate:hover{transform:translateY(-5px);box-shadow:0 34px 60px -40px rgba(56,49,61,.55)}
+.video-plate video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  pointer-events:none;filter:saturate(.92) contrast(.98);
+  transition:transform 1.2s var(--ease);
+}
+.video-plate:hover video{transform:scale(1.025)}
+.video-plate__shade{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(56,49,61,.06) 0%,rgba(56,49,61,0) 40%,rgba(45,39,50,.52) 100%);
+}
+.video-plate__top{
+  position:absolute;top:15px;left:16px;right:16px;z-index:2;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:7.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.82);
+  text-shadow:0 1px 8px rgba(45,39,50,.25);
+}
+.video-plate__play{
+  position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:2;
+  width:56px;height:56px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.65);
+  background:rgba(255,255,255,.13);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  color:#fff;
+  transition:background .4s,transform .5s var(--ease);
+}
+.video-plate__play svg{width:16px;height:16px;margin-left:2px}
+.video-plate:hover .video-plate__play{background:rgba(255,255,255,.26);transform:translate(-50%,-50%) scale(1.06)}
+.video-plate__bottom{
+  position:absolute;left:17px;right:17px;bottom:15px;z-index:2;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:10px;
+  color:#fff;
+}
+.video-plate__bottom strong{
+  font-family:var(--serif);font-weight:300;font-size:1.24rem;line-height:1.05;letter-spacing:.01em;
+  text-shadow:0 1px 12px rgba(45,39,50,.3);
+}
+.video-plate__bottom span{font-size:7px;letter-spacing:.22em;text-transform:uppercase;opacity:.7;padding-bottom:4px}
+.video-plate--empty{cursor:default}
+.video-plate--empty .video-plate__play{opacity:.45}
+
+/* ---------- Full gallery views ---------- */
+.view{
+  position:fixed;inset:0;z-index:95;
+  display:flex;flex-direction:column;
+  background:var(--ivory);
+  animation:viewIn .55s var(--ease) both;
+}
+@keyframes viewIn{from{opacity:0;transform:scale(.995)}to{opacity:1;transform:none}}
+.view__bar{
+  flex:none;z-index:3;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:15px clamp(18px,4vw,52px);
+  background:rgba(249,245,247,.93);
+  border-bottom:1px solid var(--line-soft);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+.view__bar-title{font-family:var(--serif);font-size:16px;font-weight:400;letter-spacing:.04em;margin:0}
+.view__bar-count{font-size:8px;letter-spacing:.25em;text-transform:uppercase;color:var(--plum-faint);margin:0;min-width:90px;text-align:right}
+.view__scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:clamp(40px,6vw,74px) clamp(16px,4vw,52px) 96px}
+.view__inner{max-width:1260px;margin:0 auto}
+.view__head{max-width:720px;margin-bottom:clamp(34px,5vw,56px)}
+.view__head h2{font-size:clamp(2.4rem,4.6vw,4rem)}
+.view__head .lede{margin-top:16px}
+.masonry{columns:3;column-gap:clamp(14px,2vw,22px)}
+.masonry .photo{break-inside:avoid;margin:0 0 clamp(14px,2vw,22px)}
+.masonry .photo__frame{padding:clamp(6px,.8vw,10px)}
+.masonry .photo__label{margin-top:8px}
+.room--video .view-note{display:none}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;z-index:120;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(52px,8vh,90px) clamp(12px,7vw,100px);
+  background:rgba(43,37,48,.95);
+  color:var(--ivory);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  animation:lbIn .4s ease both;
+}
+@keyframes lbIn{from{opacity:0}to{opacity:1}}
+.lightbox__figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:16px;max-width:100%;max-height:100%}
+.lightbox__figure img{
+  max-width:100%;max-height:calc(100svh - 190px);width:auto;height:auto;
+  object-fit:contain;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.55);
+  background:#241f28;
+}
+.lightbox__cap{
+  display:flex;align-items:center;gap:14px;
+  font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(249,245,247,.6);
+}
+.lightbox__cap .hairline{width:38px;height:1px;background:rgba(249,245,247,.22)}
+.lightbox__close{
+  position:absolute;top:clamp(14px,3vw,28px);right:clamp(14px,3vw,28px);z-index:2;
+  width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid rgba(249,245,247,.25);color:var(--ivory);
+  transition:background .3s,border-color .3s;
+}
+.lightbox__close:hover{background:rgba(249,245,247,.12);border-color:rgba(249,245,247,.5)}
+.lightbox__close svg{width:16px;height:16px}
+.lightbox__nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:48px;height:48px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid rgba(249,245,247,.22);color:var(--ivory);
+  transition:background .3s,border-color .3s,opacity .3s;
+}
+.lightbox__nav:hover{background:rgba(249,245,247,.12);border-color:rgba(249,245,247,.45)}
+.lightbox__nav svg{width:18px;height:18px}
+.lightbox__prev{left:clamp(10px,2.4vw,34px)}
+.lightbox__next{right:clamp(10px,2.4vw,34px)}
+.lightbox__hint{
+  position:absolute;left:0;right:0;bottom:clamp(14px,2.4vw,24px);
+  margin:0;text-align:center;
+  font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(249,245,247,.34);
+}
+
+@media (max-width:1024px){
+  .masonry{columns:3}
+  .photo--slot-0{grid-column:1 / span 7;grid-row:1 / span 2}
+  .photo--slot-1{grid-column:8 / span 5;grid-row:1}
+  .photo--slot-2{grid-column:8 / span 5;grid-row:2}
+  .photo--slot-3{grid-column:1 / span 4;grid-row:3}
+  .photo--slot-4{grid-column:5 / span 4;grid-row:3}
+  .photo--slot-5{grid-column:9 / span 4;grid-row:3}
+  .photo--slot-6{grid-column:2 / span 10;grid-row:4}
+  .video-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:820px){
+  .masonry{columns:2}
+  .video-grid{grid-template-columns:repeat(2,1fr)}
+  .view__bar-count{display:none}
+  .lightbox__figure img{max-height:calc(100svh - 200px)}
+}
+@media (max-width:640px){
+  .editorial-grid{gap:22px 14px}
+  .photo--slot-0,.photo--slot-1,.photo--slot-2,.photo--slot-3,.photo--slot-4,.photo--slot-5,.photo--slot-6{grid-column:1/-1;grid-row:auto;margin-top:0}
+  .photo--slot-2,.photo--slot-4{margin-inline:6%}
+  .photo--slot-3{margin-inline:0}
+  .photo--slot-5{margin-inline:4%}
+  .photo--slot-6{margin-inline:2%}
+  .video-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .video-plate__play{width:44px;height:44px}
+  .video-plate__bottom strong{font-size:1.05rem}
+  .video-plate__top{font-size:6.5px;letter-spacing:.2em}
+  .masonry{columns:2;column-gap:12px}
+  .lightbox{padding:60px 10px 72px}
+  .lightbox__nav{width:40px;height:40px;top:auto;bottom:18px;transform:none}
+  .lightbox__prev{left:calc(50% - 54px)}
+  .lightbox__next{right:calc(50% - 54px)}
+  .lightbox__figure img{max-height:calc(100svh - 220px)}
+  .lightbox__hint{display:none}
+  .view__bar{padding:12px 16px}
+  .view__bar-title{font-size:14px}
+}
+@media (max-width:430px){
+  .video-grid{grid-template-columns:1fr}
+  .video-plate{aspect-ratio:4/3.6}
+}
+
+</style>
+<style>
+/* ---------- Garden Gallery ---------- */
+.room--garden::after{
+  background:
+    radial-gradient(50% 44% at 4% 18%,rgba(201,228,223,.46) 0%,rgba(201,228,223,0) 74%),
+    radial-gradient(40% 34% at 98% 78%,rgba(235,203,216,.3) 0%,rgba(235,203,216,0) 72%);
+}
+.garden-layout{
+  display:grid;grid-template-columns:238px minmax(0,1fr);
+  gap:clamp(30px,5vw,76px);align-items:start;
+}
+.bouquet-picker{position:sticky;top:104px}
+.bouquet-picker__title{
+  margin:0 0 16px;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--plum-faint);
+}
+.bouquet-options{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.bouquet-option{
+  position:relative;display:flex;align-items:center;gap:13px;
+  padding:13px 4px;border-bottom:1px solid var(--line-soft);
+  text-align:left;transition:padding-left .4s var(--ease),color .3s;
+}
+.bouquet-option__swatch{
+  width:24px;height:24px;border-radius:50%;flex:none;
+  background:var(--sw);border:1px solid rgba(56,49,61,.12);
+  box-shadow:inset 0 -4px 8px rgba(56,49,61,.08),inset 0 3px 7px rgba(255,255,255,.55);
+  transition:transform .4s var(--ease),box-shadow .4s;
+}
+.bouquet-option__name{flex:1;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--plum-soft)}
+.bouquet-option__no{font-size:7.5px;letter-spacing:.14em;color:rgba(56,49,61,.28);font-variant-numeric:tabular-nums}
+.bouquet-option:hover{padding-left:9px;color:var(--plum)}
+.bouquet-option[aria-selected="true"]{padding-left:9px}
+.bouquet-option[aria-selected="true"] .bouquet-option__name{color:var(--plum)}
+.bouquet-option[aria-selected="true"] .bouquet-option__swatch{transform:scale(1.1);box-shadow:0 0 0 4px rgba(255,253,254,.7),0 0 0 5px rgba(56,49,61,.16)}
+.bouquet-option[aria-selected="true"]::before{
+  content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:var(--plum);opacity:.55;
+}
+.bouquet-picker__note{
+  margin:22px 0 0;font-size:11px;line-height:1.8;color:var(--plum-faint);
+  max-width:29ch;font-family:var(--serif);font-style:italic;font-size:13px;
+}
+.garden-stage{
+  display:grid;grid-template-columns:minmax(250px,1fr) minmax(210px,.78fr);
+  gap:clamp(22px,4vw,54px);align-items:center;
+}
+.garden-arch{
+  position:relative;isolation:isolate;
+  aspect-ratio:4/5;max-height:610px;width:100%;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:clamp(18px,3vw,36px) clamp(12px,3vw,30px) 0;
+  border:1px solid rgba(56,49,61,.11);
+  border-radius:50% 50% 5px 5px/34% 34% 5px 5px;
+  background:linear-gradient(178deg,rgba(220,211,240,.36) 0%,rgba(235,203,216,.22) 55%,rgba(201,228,223,.2) 100%);
+  box-shadow:inset 0 -40px 80px -60px rgba(56,49,61,.28);
+  overflow:hidden;
+}
+.garden-arch::before{
+  content:"";position:absolute;inset:18px;
+  border:1px solid rgba(255,255,255,.5);border-radius:inherit;z-index:0;
+  pointer-events:none;
+}
+.garden-arch::after{
+  content:"";position:absolute;left:8%;right:8%;bottom:3%;height:14%;z-index:0;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(56,49,61,.13),rgba(56,49,61,0) 70%);
+  filter:blur(6px);pointer-events:none;
+}
+.bouquet-art{position:relative;z-index:1;width:min(100%,410px);align-self:flex-end}
+.bouquet-art svg{display:block;width:100%;height:auto;overflow:visible;animation:bouquetBreathe 9s ease-in-out infinite;transform-origin:50% 92%}
+@keyframes bouquetBreathe{0%,100%{transform:rotate(-.7deg)}50%{transform:rotate(.7deg)}}
+.bloom{transform-box:fill-box;transform-origin:center;animation:bloomIn .95s var(--ease) both;animation-delay:var(--d,0s)}
+@keyframes bloomIn{from{opacity:0;transform:scale(.36) rotate(-10deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.garden-note{padding-block:6px;max-width:330px}
+.garden-note__no{margin:0 0 6px;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--plum-faint)}
+.garden-note h3{
+  margin:0;font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.1rem,3.7vw,3.3rem);line-height:1;letter-spacing:-.01em;
+}
+.garden-note__rule{width:44px;height:1px;background:rgba(56,49,61,.25);margin:20px 0}
+.garden-note__message{margin:0;font-size:13.5px;line-height:1.9;color:var(--plum-soft);min-height:138px}
+.garden-note__message.is-changing{animation:noteFade .7s ease both}
+@keyframes noteFade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.garden-note .text-btn{margin-top:26px}
+
+/* ---------- Letter Archive ---------- */
+.room--letters::after{
+  background:radial-gradient(54% 42% at 96% 6%,rgba(235,203,216,.36) 0%,rgba(235,203,216,0) 72%);
+}
+.letter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(13px,1.8vw,22px)}
+.envelope{
+  --paper:rgba(235,203,216,.2);
+  --flap:rgba(235,203,216,.42);
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:8px;
+  min-height:clamp(190px,22vw,238px);padding:clamp(18px,2.1vw,26px);
+  text-align:left;
+  border:1px solid rgba(56,49,61,.11);border-radius:2px;
+  background:linear-gradient(155deg,rgba(255,253,254,.92),var(--paper));
+  box-shadow:0 24px 46px -40px rgba(56,49,61,.5);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .4s;
+}
+.envelope__flap{
+  position:absolute;top:0;left:0;right:0;height:57%;z-index:-1;
+  background:linear-gradient(180deg,var(--flap),rgba(255,253,254,.1));
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transition:transform .55s var(--ease);
+}
+.envelope__seal{
+  position:absolute;top:41%;left:50%;transform:translate(-50%,-50%);z-index:1;
+  width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,253,254,.75);
+  border:1px solid rgba(56,49,61,.18);
+  font-family:var(--serif);font-size:13px;color:rgba(56,49,61,.55);
+  box-shadow:0 4px 14px -6px rgba(56,49,61,.2);
+  transition:transform .5s var(--ease),background .4s;
+}
+.envelope:nth-child(3n+2){--paper:rgba(220,211,240,.2);--flap:rgba(220,211,240,.42)}
+.envelope:nth-child(3n+3){--paper:rgba(201,228,223,.18);--flap:rgba(201,228,223,.38)}
+.envelope__no{
+  position:absolute;top:15px;left:17px;z-index:1;
+  font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(56,49,61,.42);
+}
+.envelope__title{
+  position:relative;z-index:1;
+  font-family:var(--serif);font-weight:300;font-size:clamp(1.22rem,1.85vw,1.6rem);
+  line-height:1.1;letter-spacing:-.005em;
+}
+.envelope__open{
+  position:relative;z-index:1;display:flex;align-items:center;gap:8px;
+  margin-top:5px;font-size:7.5px;letter-spacing:.23em;text-transform:uppercase;color:var(--plum-faint);
+}
+.envelope__open svg{width:12px;height:12px;transition:transform .4s var(--ease)}
+.envelope:hover{transform:translateY(-5px);border-color:rgba(56,49,61,.2);box-shadow:0 32px 56px -40px rgba(56,49,61,.6)}
+.envelope:hover .envelope__flap{transform:translateY(-5px)}
+.envelope:hover .envelope__seal{transform:translate(-50%,-50%) scale(1.06);background:rgba(255,253,254,.92)}
+.envelope:hover .envelope__open svg{transform:translateX(3px)}
+
+@media (max-width:1024px){
+  .garden-layout{grid-template-columns:200px minmax(0,1fr);gap:28px}
+  .garden-stage{grid-template-columns:minmax(220px,1fr) minmax(190px,.8fr);gap:24px}
+  .bouquet-option__name{font-size:8.5px}
+}
+@media (max-width:860px){
+  .garden-layout{grid-template-columns:1fr;gap:34px}
+  .bouquet-picker{position:static}
+  .bouquet-options{flex-direction:row;flex-wrap:wrap;border-top:0;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .bouquet-option{flex:1 1 30%;border-bottom:0;padding:10px 4px}
+  .bouquet-option[aria-selected="true"]::before{display:none}
+  .bouquet-option__no{display:none}
+  .bouquet-picker__note{display:none}
+  .garden-stage{grid-template-columns:minmax(0,1fr) minmax(220px,.8fr)}
+  .garden-arch{max-height:520px}
+  .garden-note__message{min-height:0}
+  .letter-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:620px){
+  .garden-stage{grid-template-columns:1fr;gap:30px}
+  .garden-arch{max-width:420px;margin-inline:auto;aspect-ratio:4/4.7}
+  .garden-note{max-width:100%}
+  .garden-note__message{font-size:13px}
+  .bouquet-option{flex:1 1 45%}
+  .letter-grid{grid-template-columns:1fr}
+  .envelope{min-height:178px}
+}
+
+/* ---------- Gift Room ---------- */
+.room--gifts::after{
+  background:
+    radial-gradient(48% 40% at 4% 10%,rgba(220,211,240,.42) 0%,rgba(220,211,240,0) 72%),
+    radial-gradient(42% 34% at 96% 84%,rgba(235,203,216,.34) 0%,rgba(235,203,216,0) 72%);
+}
+.gift-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(13px,1.8vw,20px)}
+.gift-card{
+  --tint:rgba(235,203,216,.32);
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:space-between;gap:24px;
+  min-height:255px;padding:clamp(20px,2.3vw,28px);text-align:left;
+  border:1px solid rgba(56,49,61,.1);border-radius:3px;
+  background:linear-gradient(150deg,var(--tint),rgba(255,253,254,.55) 80%);
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .4s;
+}
+.gift-card::before{
+  content:"";position:absolute;right:-42px;bottom:-56px;z-index:-1;
+  width:170px;height:220px;border:1px solid rgba(56,49,61,.09);
+  border-radius:999px 999px 0 0;opacity:.65;
+  transition:transform .7s var(--ease),opacity .4s;
+}
+.gift-card:hover{transform:translateY(-6px);border-color:rgba(56,49,61,.19);box-shadow:0 32px 58px -40px rgba(56,49,61,.55)}
+.gift-card:hover::before{transform:translateY(-7px);opacity:.9}
+.gift-card__top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.gift-card__no{font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-faint)}
+.gift-card__glyph{width:48px;height:48px;flex:none;color:rgba(56,49,61,.46)}
+.gift-card__body{position:relative;z-index:1}
+.gift-card__kicker{display:block;margin-bottom:7px;font-size:7.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--plum-faint)}
+.gift-card h3{margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(1.4rem,2.1vw,1.9rem);line-height:1.05}
+.gift-card p{margin:10px 0 0;max-width:32ch;font-size:11.5px;line-height:1.7;color:var(--plum-soft)}
+.gift-card__bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}
+.gift-card__open{font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-soft)}
+.gift-card__arrow{
+  width:30px;height:30px;border-radius:50%;border:1px solid rgba(56,49,61,.2);
+  display:grid;place-items:center;transition:.4s var(--ease);flex:none;
+}
+.gift-card__arrow svg{width:11px;height:11px}
+.gift-card:hover .gift-card__arrow{background:var(--plum);color:var(--ivory);border-color:var(--plum);transform:rotate(-45deg)}
+.gift-card--present{grid-column:span 5;min-height:305px;--tint:rgba(235,203,216,.44)}
+.gift-card--present .gift-card__glyph{width:68px;height:68px}
+.gift-card--compliments{grid-column:span 3;--tint:rgba(220,211,240,.42)}
+.gift-card--jar{grid-column:span 4;--tint:rgba(201,228,223,.42)}
+.gift-card--photo{grid-column:span 4;--tint:rgba(255,253,254,.72)}
+.gift-card--surprise{grid-column:span 4;--tint:rgba(220,211,240,.26)}
+.gift-card--coupon{grid-column:span 4;--tint:rgba(235,203,216,.28)}
+.gift-card--penguin{
+  grid-column:span 12;min-height:218px;--tint:rgba(201,228,223,.34);
+  display:grid;grid-template-columns:1fr 190px;align-items:center;gap:20px;
+}
+.gift-card--penguin::before{display:none}
+.gift-card--penguin .gift-card__body{max-width:520px}
+.penguin-mini{width:150px;height:auto;justify-self:end;filter:drop-shadow(0 18px 22px rgba(56,49,61,.12))}
+
+/* ---------- Future Wing ---------- */
+.room--future::after{
+  background:
+    radial-gradient(52% 44% at 96% 6%,rgba(220,211,240,.44) 0%,rgba(220,211,240,0) 72%),
+    radial-gradient(42% 36% at 2% 88%,rgba(201,228,223,.32) 0%,rgba(201,228,223,0) 72%);
+}
+.future-feature{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:end;
+  padding:clamp(30px,5.4vw,64px);
+  border:1px solid rgba(56,49,61,.11);border-radius:3px;
+  background:linear-gradient(140deg,rgba(235,203,216,.46) 0%,rgba(220,211,240,.34) 52%,rgba(201,228,223,.3) 100%);
+}
+.future-feature::before{
+  content:"";position:absolute;right:-80px;top:-120px;z-index:-1;
+  width:min(470px,55vw);height:min(540px,70vw);
+  border:1px solid rgba(255,255,255,.5);border-radius:999px 999px 0 0;
+}
+.future-feature::after{
+  content:"";position:absolute;left:5%;bottom:8%;width:60%;height:1px;
+  background:linear-gradient(90deg,rgba(56,49,61,.16),rgba(56,49,61,0));z-index:-1;
+}
+.future-feature__label{display:flex;align-items:center;gap:12px;margin:0 0 24px;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:rgba(56,49,61,.55)}
+.future-feature__label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blush-deep)}
+.future-date{font-family:var(--serif);font-weight:300;font-size:clamp(2.5rem,6.2vw,5.4rem);line-height:.9;letter-spacing:.005em;margin:0}
+.future-feature h3{margin:16px 0 0;font-family:var(--serif);font-weight:400;font-style:italic;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.1}
+.future-feature__copy{margin:22px 0 0;max-width:42ch;font-size:13px;line-height:1.85;color:var(--plum-soft)}
+.future-count{align-self:end;justify-self:end;text-align:right}
+.future-count__eyebrow{margin:0 0 6px;font-size:7.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(56,49,61,.5)}
+.future-count b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(2.7rem,4.8vw,4.2rem);line-height:1;letter-spacing:-.02em}
+.future-count span{display:block;margin-top:7px;font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:rgba(56,49,61,.42)}
+.future-count__note{margin:16px 0 0;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--plum-soft)}
+.idea-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.6vw,18px);margin-top:clamp(20px,3vw,28px)}
+.idea{
+  --tint:rgba(201,228,223,.3);
+  display:flex;flex-direction:column;gap:14px;
+  min-height:230px;padding:clamp(20px,2.2vw,26px);
+  border:1px solid rgba(56,49,61,.09);border-radius:2px;
+  background:linear-gradient(155deg,var(--tint),rgba(255,253,254,.5) 82%);
+  transition:transform .5s var(--ease),background .5s,border-color .4s;
+}
+.idea:nth-child(4n+2){--tint:rgba(235,203,216,.3)}
+.idea:nth-child(4n+3){--tint:rgba(220,211,240,.32)}
+.idea:nth-child(4n+4){--tint:rgba(249,245,247,.7)}
+.idea:hover{transform:translateY(-5px);border-color:rgba(56,49,61,.18)}
+.idea__top{display:flex;justify-content:space-between;align-items:flex-start}
+.idea__no{font-size:7.5px;letter-spacing:.22em;color:var(--plum-faint)}
+.idea__glyph{width:26px;height:26px;color:rgba(56,49,61,.44)}
+.idea h3{margin:auto 0 0;font-family:var(--serif);font-weight:400;font-size:clamp(1.22rem,1.8vw,1.5rem);line-height:1.1}
+.idea p{margin:0;font-size:11.5px;line-height:1.7;color:var(--plum-soft)}
+.future-note{margin:22px 0 0;text-align:center;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--plum-faint)}
+
+/* ---------- Final Exhibit ---------- */
+.room--final{
+  min-height:100svh;display:flex;align-items:center;
+  padding-block:clamp(90px,11vw,140px);
+  background:
+    radial-gradient(58% 46% at 50% 62%,rgba(235,203,216,.34) 0%,rgba(235,203,216,0) 72%),
+    radial-gradient(46% 36% at 50% 20%,rgba(220,211,240,.26) 0%,rgba(220,211,240,0) 72%);
+}
+.room--final::after{content:"";position:absolute;left:50%;top:8%;bottom:8%;width:min(760px,88vw);transform:translateX(-50%);border-inline:1px solid rgba(56,49,61,.055);pointer-events:none}
+.final-inner{text-align:center;max-width:960px;margin:auto;width:100%}
+.final-niche{
+  position:relative;isolation:isolate;
+  width:min(590px,100%);margin:clamp(34px,5vw,54px) auto 0;
+  padding:clamp(34px,5vw,52px) clamp(22px,4vw,44px) clamp(30px,4vw,44px);
+  border:1px solid rgba(56,49,61,.11);
+  border-radius:50% 50% 4px 4px/36% 36% 4px 4px;
+  background:linear-gradient(180deg,rgba(255,253,254,.66),rgba(220,211,240,.22) 62%,rgba(235,203,216,.24));
+  box-shadow:0 40px 80px -60px rgba(56,49,61,.4);
+}
+.final-niche::before{
+  content:"";position:absolute;inset:16px;border:1px solid rgba(255,255,255,.6);
+  border-radius:inherit;z-index:-1;pointer-events:none;
+}
+.final-niche__label{margin:0 0 30px;font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--plum-faint)}
+.final-letter{
+  position:relative;display:block;width:min(330px,88%);aspect-ratio:1.52/1;margin:0 auto;
+  background:linear-gradient(160deg,#fffdfd,#f7edf2);
+  border:1px solid rgba(56,49,61,.14);
+  box-shadow:0 18px 32px -24px rgba(56,49,61,.55);
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease);
+  overflow:hidden;
+}
+.final-letter::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(235,203,216,.55),rgba(255,253,254,.1));
+  clip-path:polygon(0 0,100% 0,50% 62%);
+  border-bottom:1px solid rgba(56,49,61,.08);
+}
+.final-letter__seal{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;
+  width:52px;height:52px;border-radius:50%;
+  display:grid;place-items:center;
+  font-family:var(--serif);font-size:18px;color:var(--plum);
+  background:rgba(255,253,254,.86);border:1px solid rgba(56,49,61,.2);
+  box-shadow:0 6px 18px -8px rgba(56,49,61,.28);
+  transition:transform .5s var(--ease);
+}
+.final-letter__to{
+  position:absolute;left:0;right:0;bottom:16px;z-index:1;
+  font-family:var(--hand);font-size:22px;color:rgba(56,49,61,.7);
+}
+.final-letter:hover{transform:translateY(-5px) rotate(-.6deg);box-shadow:0 30px 48px -26px rgba(56,49,61,.5)}
+.final-letter:hover .final-letter__seal{transform:translate(-50%,-50%) scale(1.08)}
+.final-niche__hint{margin:26px 0 0;font-size:7.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(56,49,61,.36)}
+.final-pedestal{width:66%;height:1px;background:linear-gradient(90deg,transparent,rgba(56,49,61,.22),transparent);margin:30px auto 0}
+.final-lines{
+  margin:clamp(42px,6vw,64px) auto 0;
+  font-size:8.5px;letter-spacing:.3em;line-height:2.6;text-transform:uppercase;color:var(--plum-faint);
+}
+.final-dedication{
+  margin:clamp(18px,2.6vw,28px) auto 0;
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(1.65rem,4.1vw,3.4rem);line-height:1.1;letter-spacing:.06em;
+  color:var(--plum);
+}
+.final-return{margin-top:clamp(30px,4vw,44px)}
+
+/* ---------- Footer ---------- */
+.footer{
+  position:relative;z-index:1;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 26px;
+  padding:26px clamp(20px,4vw,52px);
+  border-top:1px solid var(--line-soft);
+  font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-faint);
+  background:var(--ivory);
+}
+.footer span{display:inline-flex;align-items:center;gap:10px}
+.footer .dot{width:3px;height:3px;border-radius:50%;background:var(--blush-deep);opacity:.8}
+
+@media (max-width:1024px){
+  .gift-card--present{grid-column:span 6}
+  .gift-card--compliments{grid-column:span 6}
+  .gift-card--jar{grid-column:span 4}
+  .gift-card--photo{grid-column:span 4}
+  .gift-card--surprise{grid-column:span 4}
+  .gift-card--coupon{grid-column:span 6}
+  .gift-card--penguin{grid-column:span 6;grid-template-columns:1fr}
+  .penguin-mini{display:none}
+  .idea-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:720px){
+  .gift-card--present,.gift-card--compliments,.gift-card--jar,.gift-card--photo,.gift-card--surprise,.gift-card--coupon,.gift-card--penguin{grid-column:span 12}
+  .gift-card{min-height:220px}
+  .future-feature{grid-template-columns:1fr;align-items:start}
+  .future-count{justify-self:start;text-align:left;margin-top:6px}
+}
+@media (max-width:520px){
+  .idea-grid{grid-template-columns:1fr}
+  .idea{min-height:0;gap:12px}
+  .idea h3{margin-top:14px}
+  .footer{justify-content:center;text-align:center}
+  .final-lines{letter-spacing:.22em;line-height:2.4}
+}
+
+</style>
+<style>
+/* ---------- Shared modal ---------- */
+.final-inner .lede{margin-inline:auto}
+.modal{
+  position:fixed;inset:0;z-index:110;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(14px,4vw,42px);
+}
+.modal__backdrop{
+  position:absolute;inset:0;
+  background:rgba(45,39,50,.52);
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  animation:fadeIn .35s ease both;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal__dialog{
+  position:relative;z-index:1;
+  width:min(680px,100%);max-height:min(90svh,920px);
+  overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(30px,5vw,54px);
+  background:#FCF8FA;
+  border:1px solid rgba(56,49,61,.14);
+  box-shadow:0 50px 110px -40px rgba(30,24,34,.6);
+  animation:modalIn .5s var(--ease) both;
+  scrollbar-width:thin;scrollbar-color:rgba(56,49,61,.25) transparent;
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.992)}to{opacity:1;transform:none}}
+.modal__dialog--letter{width:min(740px,100%)}
+.modal__dialog--video{width:min(960px,100%);padding:clamp(14px,2vw,22px);background:#241F28;border-color:rgba(255,255,255,.12)}
+.modal__dialog::-webkit-scrollbar{width:6px}
+.modal__dialog::-webkit-scrollbar-thumb{background:rgba(56,49,61,.2);border-radius:10px}
+.modal__close{
+  position:absolute;top:14px;right:14px;z-index:4;
+  width:38px;height:38px;border-radius:50%;
+  display:grid;place-items:center;
+  color:var(--plum);background:rgba(252,248,250,.9);
+  border:1px solid rgba(56,49,61,.16);
+  transition:background .3s,transform .3s;
+}
+.modal__close:hover{background:#fff;transform:rotate(90deg)}
+.modal__close svg{width:14px;height:14px}
+.modal__dialog--video .modal__close{background:rgba(36,31,40,.75);color:var(--ivory);border-color:rgba(255,255,255,.2)}
+.modal__dialog--video .modal__close:hover{background:rgba(255,255,255,.12)}
+.sheet-title{
+  margin:18px 0 0;font-family:var(--serif);font-weight:300;
+  font-size:clamp(2rem,4vw,3rem);line-height:1.02;letter-spacing:-.01em;
+  padding-right:24px;
+}
+.sheet-lede{margin:16px 0 0;font-size:13px;line-height:1.8;color:var(--plum-soft);max-width:48ch}
+.sheet-rule{width:100%;height:1px;background:var(--line-soft);margin:26px 0}
+.sheet-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:28px}
+.sheet-meta{font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-faint)}
+
+/* ---------- Letters ---------- */
+.letter-view{padding-top:2px}
+.letter-view__meta{display:flex;justify-content:space-between;gap:16px;padding-right:34px;font-size:7.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--plum-faint)}
+.letter-view__title{margin:26px 0 0;font-family:var(--serif);font-weight:300;font-size:clamp(2.15rem,4.6vw,3.4rem);line-height:1;letter-spacing:-.015em}
+.letter-view__rule{width:52px;height:1px;background:rgba(56,49,61,.28);margin:26px 0 30px}
+.letter-view__body{font-size:14.5px;line-height:1.95;color:rgba(56,49,61,.82)}
+.letter-view__body p{margin:0 0 1.15em}
+.letter-view__body p:last-child{margin-bottom:0}
+.letter-view__body > p:first-of-type::first-letter{
+  float:left;font-family:var(--serif);font-size:3.3em;line-height:.78;
+  padding:7px 10px 0 0;color:#6b5a72;
+}
+.letter-view__body em{font-style:italic;color:rgba(56,49,61,.72)}
+.letter-view__body strong{font-weight:400;color:var(--plum)}
+.letter-list{list-style:none;padding:0;margin:6px 0 0}
+.letter-list li{position:relative;padding-left:25px;margin-bottom:13px;line-height:1.75}
+.letter-list li::before{content:"";position:absolute;left:0;top:.72em;width:11px;height:1px;background:rgba(56,49,61,.35)}
+.letter-sign{margin:32px 0 0;font-family:var(--hand);font-size:2rem;line-height:1;color:rgba(56,49,61,.8)}
+.letter-editable{
+  margin:28px 0 0;padding:16px 18px;
+  border:1px dashed rgba(56,49,61,.25);
+  background:rgba(220,211,240,.16);
+  font-size:12.5px;line-height:1.8;color:rgba(56,49,61,.6);
+}
+.letter-editable strong{display:block;margin-bottom:5px;font-size:7.5px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:rgba(56,49,61,.45)}
+.letter-view__footer{margin-top:32px;padding-top:20px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.letter-view__footer span{font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-faint)}
+
+/* ---------- Present ---------- */
+.present-stage{display:flex;flex-direction:column;align-items:center;text-align:center}
+.present-art{width:min(230px,66%);margin:8px auto 4px}
+.present-art svg{display:block;width:100%;height:auto;overflow:visible}
+.present-lid{transform-box:fill-box;transform-origin:center;transition:transform .8s var(--ease),opacity .6s}
+.present-stage.is-unwrapped .present-lid{transform:translate(-24px,-34px) rotate(-15deg);opacity:.92}
+.present-stage.is-unwrapped .present-ribbon-v{opacity:0}
+.present-ribbon-v{transition:opacity .5s}
+.present-hint{margin:22px 0 0;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--plum-soft)}
+.present-reveal{max-height:0;overflow:hidden;opacity:0;transition:max-height .8s var(--ease),opacity .7s ease,margin .6s}
+.present-stage.is-unwrapped .present-reveal{max-height:360px;opacity:1;margin-top:26px}
+.present-reveal p{margin:0;padding-top:22px;border-top:1px solid var(--line-soft);font-family:var(--serif);font-size:clamp(1.2rem,2.4vw,1.5rem);line-height:1.45;font-style:italic;color:var(--plum)}
+.present-reveal span{display:block;margin-top:12px;font-family:var(--hand);font-size:1.6rem;color:var(--plum-soft)}
+
+/* ---------- Compliments ---------- */
+.draw-card{
+  position:relative;min-height:215px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:34px 28px;text-align:center;
+  border:1px solid rgba(56,49,61,.13);
+  background:linear-gradient(155deg,rgba(255,253,254,.9),rgba(235,203,216,.28));
+  box-shadow:0 20px 40px -34px rgba(56,49,61,.5);
+}
+.draw-card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.55);pointer-events:none}
+.draw-card__mark{font-family:var(--serif);font-size:2.6rem;line-height:.4;color:rgba(56,49,61,.3)}
+.draw-card p{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.4;color:var(--plum)}
+.draw-card.is-changing{animation:noteFade .6s ease both}
+.draw-meta{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:20px}
+.draw-meta span{font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--plum-faint);font-variant-numeric:tabular-nums}
+
+/* ---------- Jar ---------- */
+.jar-stage{display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center}
+.jar-stage__art{width:150px;margin-top:4px;filter:drop-shadow(0 16px 20px rgba(56,49,61,.1))}
+.jar-stage__art svg{display:block;width:100%;height:auto}
+.jar-note{
+  width:min(100%,400px);min-height:118px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  padding:22px 24px;
+  background:#FFFDFD;border:1px solid rgba(56,49,61,.12);
+  box-shadow:0 16px 30px -26px rgba(56,49,61,.5);
+  transform:rotate(-1deg);
+  transition:transform .4s var(--ease);
+}
+.jar-note.is-drawing{animation:jarPull .7s var(--ease)}
+@keyframes jarPull{0%{opacity:.2;transform:translateY(18px) rotate(-3deg)}100%{opacity:1;transform:translateY(0) rotate(-1deg)}}
+.jar-note p{margin:0;font-family:var(--serif);font-size:clamp(1.12rem,2.2vw,1.38rem);line-height:1.35;color:var(--plum)}
+.jar-note span{font-size:7px;letter-spacing:.22em;text-transform:uppercase;color:var(--plum-faint)}
+
+/* ---------- Hidden photo ---------- */
+.hidden-photo{position:relative;padding:11px;background:#FFFDFD;border:1px solid rgba(56,49,61,.13);box-shadow:0 20px 40px -30px rgba(56,49,61,.5);overflow:hidden}
+.hidden-photo img{width:100%;height:auto;max-height:54svh;object-fit:contain;background:#F2E9EE}
+.hidden-photo__veil{
+  position:absolute;inset:11px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  padding:24px;text-align:center;
+  background:
+    linear-gradient(90deg,rgba(235,203,216,.55) 0 9%,rgba(220,211,240,.82) 9% 12%,rgba(235,203,216,.75) 12% 88%,rgba(220,211,240,.82) 88% 91%,rgba(235,203,216,.55) 91% 100%),
+    linear-gradient(180deg,rgba(220,211,240,.7),rgba(235,203,216,.8));
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  transition:opacity .8s ease,visibility .8s;
+}
+.hidden-photo__veil.is-open{opacity:0;visibility:hidden;pointer-events:none}
+.hidden-photo__veil p{margin:0;font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.35;color:rgba(56,49,61,.8)}
+.hidden-photo__veil .btn{background:rgba(255,253,254,.75);border-color:rgba(56,49,61,.25)}
+.hidden-photo__caption{margin:14px 0 0;text-align:center;font-family:var(--hand);font-size:1.5rem;color:var(--plum-soft)}
+.hidden-photo__empty{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:4/3;padding:26px;text-align:center;background:linear-gradient(160deg,rgba(220,211,240,.4),rgba(235,203,216,.35))}
+.hidden-photo__empty p{max-width:30ch;font-family:var(--serif);font-style:italic;font-size:1.2rem;line-height:1.4;margin:0}
+
+/* ---------- Surprise ---------- */
+.sealed-note{
+  position:relative;width:100%;text-align:left;
+  padding:clamp(24px,4vw,36px);
+  border:1px solid rgba(56,49,61,.13);
+  background:linear-gradient(155deg,#FFFDFD,rgba(220,211,240,.28));
+  box-shadow:0 18px 36px -30px rgba(56,49,61,.5);
+}
+.sealed-note__closed{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:8px 0;transition:opacity .4s}
+.sealed-note.is-open .sealed-note__closed{display:none}
+.sealed-note__seal{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(56,49,61,.2);font-family:var(--serif);font-size:16px;background:rgba(255,253,254,.8)}
+.sealed-note__closed p{margin:0;font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--plum-soft)}
+.sealed-note__content{display:none;animation:noteFade .7s ease both}
+.sealed-note.is-open .sealed-note__content{display:block}
+.sealed-note__content p{margin:0;font-family:var(--serif);font-size:clamp(1.25rem,2.5vw,1.6rem);line-height:1.55;font-style:italic;color:var(--plum)}
+.sealed-note__content span{display:block;margin-top:16px;font-family:var(--hand);font-size:1.7rem;color:var(--plum-soft)}
+
+/* ---------- Coupon ---------- */
+.coupon{
+  position:relative;display:grid;grid-template-columns:74px minmax(0,1fr);
+  border:1px solid rgba(56,49,61,.16);overflow:hidden;
+  background:linear-gradient(155deg,#FFFDFD,rgba(235,203,216,.24));
+  box-shadow:0 18px 36px -32px rgba(56,49,61,.45);
+}
+.coupon__stub{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:var(--plum);color:var(--ivory);padding:20px 8px;
+  font-size:7px;letter-spacing:.3em;text-transform:uppercase;
+}
+.coupon__stub span{writing-mode:vertical-rl;transform:rotate(180deg)}
+.coupon__stub b{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--serif);font-weight:400;font-size:19px;letter-spacing:.08em}
+.coupon__body{padding:clamp(22px,3.4vw,32px);border-left:1px dashed rgba(56,49,61,.26)}
+.coupon__body h3{margin:8px 0 0;font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,3.5vw,2.5rem);line-height:1.02}
+.coupon__body > p{margin:14px 0 0;font-size:12.5px;line-height:1.8;color:var(--plum-soft)}
+.coupon__terms{margin:20px 0 0!important;padding-top:14px;border-top:1px solid var(--line-soft);font-size:7px!important;letter-spacing:.22em;text-transform:uppercase;color:var(--plum-faint)!important}
+.coupon__stamp{
+  position:absolute;right:18px;bottom:18px;
+  padding:7px 13px;border:1.5px solid rgba(120,80,92,.7);border-radius:3px;
+  font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(120,80,92,.78);
+  transform:rotate(-12deg) scale(.7);opacity:0;transition:opacity .4s,transform .5s var(--ease);
+}
+.coupon.is-redeemed .coupon__stamp{opacity:1;transform:rotate(-12deg) scale(1)}
+
+/* ---------- Penguin ---------- */
+.penguin-stage{text-align:center}
+.penguin-stage__art{width:min(180px,52%);margin:0 auto;filter:drop-shadow(0 18px 24px rgba(56,49,61,.12));transform-origin:50% 92%}
+.penguin-stage__art svg{display:block;width:100%;height:auto}
+.penguin-stage.is-wiggle .penguin-stage__art{animation:penguinWiggle .65s var(--ease)}
+@keyframes penguinWiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-5deg)}45%{transform:rotate(4deg)}70%{transform:rotate(-2deg)}}
+.penguin-message{
+  margin:24px auto 0;max-width:430px;min-height:86px;
+  display:flex;align-items:center;justify-content:center;
+  padding:22px 24px;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+  font-family:var(--serif);font-style:italic;font-size:clamp(1.15rem,2.3vw,1.4rem);line-height:1.45;
+}
+.penguin-message.is-changing{animation:noteFade .5s ease both}
+
+/* ---------- Video player modal ---------- */
+.video-player{width:100%;max-height:68svh;display:block;background:#161219;border:1px solid rgba(255,255,255,.08)}
+.video-player__bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 8px 4px;color:rgba(249,245,247,.62)}
+.video-player__bar p{margin:0;font-size:8px;letter-spacing:.24em;text-transform:uppercase}
+.video-player__nav{display:flex;gap:8px;align-items:center}
+.video-player__nav button{
+  width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
+  display:grid;place-items:center;color:var(--ivory);transition:background .3s;
+}
+.video-player__nav button:hover{background:rgba(255,255,255,.12)}
+.video-player__nav svg{width:13px;height:13px}
+
+.present-stage > .btn{margin-top:20px}
+.jar-stage > .btn{margin-top:2px}
+.penguin-stage > .btn{margin-top:24px}
+.draw-meta .btn{min-height:46px;padding:13px 24px}
+.coupon__body .eyebrow{font-size:8px}
+.coupon__body .eyebrow::before{width:18px}
+
+@media (max-width:640px){
+  .modal{padding:0;align-items:flex-end}
+  .modal__dialog{width:100%;max-height:92svh;border-radius:14px 14px 0 0;border-bottom:0;padding:30px 20px calc(28px + env(safe-area-inset-bottom))}
+  .modal__dialog--video{max-height:94svh;padding:12px}
+  .modal__close{top:12px;right:12px}
+  .letter-view__body{font-size:13.5px;line-height:1.9}
+  .coupon{grid-template-columns:58px minmax(0,1fr)}
+  .draw-meta{flex-direction:column;align-items:flex-start}
+}
+
+</style>
+</head>
+<body class="locked">
+
+<!-- ============================ ENTRANCE ============================ -->
+<div class="entrance" id="entrance">
+  <div class="entrance__architecture" aria-hidden="true">
+    <div class="entrance__arch"></div>
+    <div class="entrance__column entrance__column--l"></div>
+    <div class="entrance__column entrance__column--r"></div>
+    <div class="entrance__floor"></div>
+    <svg class="entrance__botanical entrance__botanical--l" viewBox="0 0 200 430" fill="none">
+      <path d="M108 424C103 350 112 290 96 226C86 184 92 132 118 92" stroke="currentColor" stroke-width="1.1"/>
+      <path d="M102 332C66 322 46 292 50 262C82 264 102 288 102 332Z" fill="rgba(201,228,223,.4)" stroke="currentColor" stroke-width="1"/>
+      <path d="M104 276C138 266 154 238 151 211C122 214 105 238 104 276Z" fill="rgba(220,211,240,.35)" stroke="currentColor" stroke-width="1"/>
+      <path d="M99 214C66 206 48 179 52 152C82 154 99 178 99 214Z" fill="rgba(235,203,216,.3)" stroke="currentColor" stroke-width="1"/>
+      <path d="M106 160C134 150 148 126 145 102C120 105 106 126 106 160Z" fill="rgba(201,228,223,.35)" stroke="currentColor" stroke-width="1"/>
+      <path d="M116 110C104 82 112 55 132 38C144 60 138 90 116 110Z" fill="rgba(235,203,216,.3)" stroke="currentColor" stroke-width="1"/>
+    </svg>
+    <svg class="entrance__botanical entrance__botanical--r" viewBox="0 0 200 430" fill="none">
+      <path d="M96 424C102 350 92 290 108 226C118 184 112 132 86 92" stroke="currentColor" stroke-width="1.1"/>
+      <path d="M100 316C134 306 152 278 148 250C118 252 100 276 100 316Z" fill="rgba(235,203,216,.3)" stroke="currentColor" stroke-width="1"/>
+      <path d="M104 246C74 236 58 210 62 185C88 188 104 212 104 246Z" fill="rgba(220,211,240,.32)" stroke="currentColor" stroke-width="1"/>
+    </svg>
+    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
+    <span class="mote"></span><span class="mote"></span><span class="mote"></span><span class="mote"></span>
+  </div>
+  <div class="entrance__content">
+    <p class="entrance__eyebrow">A private collection · MMXXVI</p>
+    <h1 class="entrance__title">MEHAK</h1>
+    <p class="entrance__subtitle">A Museum of Little Forevers</p>
+    <div class="entrance__rule" aria-hidden="true"></div>
+    <p class="entrance__curator">Curated with love by Piyush</p>
+    <button class="btn" id="enterMuseum" type="button">
+      Enter the Museum
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+    </button>
+    <p class="entrance__hint">Best viewed slowly</p>
+  </div>
+</div>
+
+<!-- ============================ NAVIGATION ============================ -->
+<nav class="nav" id="nav" aria-label="Museum navigation">
+  <button class="nav__brand" type="button" data-go="atrium" aria-label="Return to the Grand Atrium">
+    <strong>MEHAK</strong>
+    <small>A Museum of Little Forevers</small>
+  </button>
+  <div class="nav__right">
+    <button class="nav__atrium" type="button" data-go="atrium">The Atrium</button>
+    <button class="nav__menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">
+      Rooms <span class="menu-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+<div class="menu-panel" id="menuPanel" aria-label="All museum rooms">
+  <div class="menu-panel__head">
+    <p>The Rooms</p>
+    <span>01 — 07</span>
+  </div>
+  <div class="menu-panel__links">
+    <button type="button" data-go="memory"><span>01</span>The Memory Gallery</button>
+    <button type="button" data-go="video"><span>02</span>The Video Gallery</button>
+    <button type="button" data-go="garden"><span>03</span>The Garden Gallery</button>
+    <button type="button" data-go="letters"><span>04</span>The Letter Archive</button>
+    <button type="button" data-go="gifts"><span>05</span>The Gift Room</button>
+    <button type="button" data-go="future"><span>06</span>The Future Wing</button>
+    <button type="button" data-go="final"><span>07</span>The Final Exhibit</button>
+  </div>
+  <p class="menu-panel__foot">Curated with love by Piyush</p>
+</div>
+
+<main id="museum">
+  <!-- ============================ GRAND ATRIUM ============================ -->
+  <section class="room room--atrium" id="atrium" aria-labelledby="atriumTitle">
+    <div class="atrium-arch" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="atrium-head reveal">
+        <p class="eyebrow eyebrow--center">The Grand Atrium</p>
+        <h2 id="atriumTitle">Everything I keep<br><em>about you.</em></h2>
+        <p class="lede">Seven rooms, one person. Photographs, films, flowers, letters and the futures I am still looking forward to — all of it is about you.</p>
+      </header>
+      <div class="atrium-grid">
+        <button class="room-card room-card--memory reveal" type="button" data-go="memory">
+          <span class="room-card__top">
+            <span class="room-card__no">Room 01</span>
+            <svg class="room-card__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="8"/><path d="M4 13h16"/><circle cx="12" cy="8" r="2.2"/></svg>
+          </span>
+          <span class="room-card__body">
+            <span class="room-card__kicker">Photographs</span>
+            <span class="room-card__title">The Memory<br>Gallery</span>
+            <span class="room-card__desc">The moments I keep coming back to, hung together on one wall.</span>
+          </span>
+          <span class="room-card__bottom">
+            <span class="room-card__open">Enter the gallery</span>
+            <span class="room-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span>
+          </span>
+          <span class="room-card__arch" aria-hidden="true"></span>
+        </button>
+        <button class="room-card room-card--video reveal" type="button" data-go="video">
+          <span class="room-card__top">
+            <span class="room-card__no">Room 02</span>
+            <svg class="room-card__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg>
+          </span>
+          <span class="room-card__body">
+            <span class="room-card__kicker">Moving pictures</span>
+            <span class="room-card__title">The Video<br>Gallery</span>
+            <span class="room-card__desc">The moments that were always better in motion.</span>
+          </span>
+          <span class="room-card__bottom">
+            <span class="room-card__open">Enter the gallery</span>
+            <span class="room-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span>
+          </span>
+          <span class="room-card__arch" aria-hidden="true"></span>
+        </button>
+        <button class="room-card room-card--garden reveal" type="button" data-go="garden">
+          <span class="room-card__top">
+            <span class="room-card__no">Room 03</span>
+            <svg class="room-card__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M12 21V9M12 13c-4 0-6-2-6-6 4 0 6 2 6 6zM12 11c4 0 6-2 6-6-4 0-6 2-6 6z"/><circle cx="12" cy="5" r="2.4"/></svg>
+          </span>
+          <span class="room-card__body">
+            <span class="room-card__kicker">In bloom</span>
+            <span class="room-card__title">The Garden<br>Gallery</span>
+            <span class="room-card__desc">Flowers that never wilt, chosen one bouquet at a time.</span>
+          </span>
+          <span class="room-card__bottom">
+            <span class="room-card__open">Enter the garden</span>
+            <span class="room-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span>
+          </span>
+          <span class="room-card__arch" aria-hidden="true"></span>
+        </button>
+        <button class="room-card room-card--letters reveal" type="button" data-go="letters">
+          <span class="room-card__top">
+            <span class="room-card__no">Room 04</span>
+            <svg class="room-card__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></svg>
+          </span>
+          <span class="room-card__body">
+            <span class="room-card__kicker">In my words</span>
+            <span class="room-card__title">The Letter<br>Archive</span>
+            <span class="room-card__desc">Nine letters, each waiting for a different kind of day.</span>
+          </span>
+          <span class="room-card__bottom">
+            <span class="room-card__open">Open the archive</span>
+            <span class="room-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span>
+          </span>
+          <span class="room-card__arch" aria-hidden="true"></span>
+        </button>
+        <button class="room-card room-card--gifts reveal" type="button" data-go="gifts">
+          <span class="room-card__top">
+            <span class="room-card__no">Room 05</span>
+            <svg class="room-card__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M2 5h20v4H2zM12 5v16M12 5c-2-4-6-2-4 0M12 5c2-4 6-2 4 0"/></svg>
+          </span>
+          <span class="room-card__body">
+            <span class="room-card__kicker">A little something</span>
+            <span class="room-card__title">The Gift<br>Room</span>
+            <span class="room-card__desc">Small things wrapped in love. Nothing here costs anything.</span>
+          </span>
+          <span class="room-card__bottom">
+            <span class="room-card__open">Open the gifts</span>
+            <span class="room-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span>
+          </span>
+          <span class="room-card__arch" aria-hidden="true"></span>
+        </button>
+        <button class="room-card room-card--future reveal" type="button" data-go="future">
+          <span class="room-card__top">
+            <span class="room-card__no">Room 06</span>
+            <svg class="room-card__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M12 3v18M3 12h18" opacity=".35"/><path d="M12 4l2 5 5 .6-3.8 3.4 1.2 5-4.4-2.6L7.6 18l1.2-5L5 9.6 10 9z"/></svg>
+          </span>
+          <span class="room-card__body">
+            <span class="room-card__kicker">Still ahead</span>
+            <span class="room-card__title">The Future Wing</span>
+            <span class="room-card__desc">The places, days and milestones we have not reached yet.</span>
+          </span>
+          <span class="room-card__bottom">
+            <span class="room-card__open">Walk into the future</span>
+            <span class="room-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span>
+          </span>
+          <span class="room-card__arch" aria-hidden="true"></span>
+        </button>
+        <button class="room-card room-card--final reveal" type="button" data-go="final">
+          <span class="room-card__top">
+            <span class="room-card__no">Room 07</span>
+            <svg class="room-card__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M5 21V10a7 7 0 0114 0v11M9 21v-8a3 3 0 016 0v8"/></svg>
+          </span>
+          <span class="room-card__body">
+            <span class="room-card__kicker">The last room</span>
+            <span class="room-card__title">The Final Exhibit</span>
+            <span class="room-card__desc">One quiet room, one last letter, and something I mean with all of me.</span>
+          </span>
+          <span class="room-card__bottom">
+            <span class="room-card__open">Go to the final room</span>
+            <span class="room-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span>
+          </span>
+          <span class="room-card__arch" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="atrium-plaque reveal">
+        <strong>Piyush &amp; Mehak</strong>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Met 15 December 2025</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Together since 14 January 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ MEMORY GALLERY ============================ -->
+  <section class="room room--memory" id="memory" aria-labelledby="memoryTitle">
+    <span class="room__numeral" aria-hidden="true">01</span>
+    <div class="wrap">
+      <header class="room-head reveal">
+        <p class="eyebrow">Room 01 · The Memory Gallery</p>
+        <h2 id="memoryTitle">A wall of little<br><em>forevers.</em></h2>
+        <p class="lede">The photographs I keep coming back to. Some are yours, some are ours — here, they belong to the same wall. Take your time with them.</p>
+      </header>
+      <div class="editorial-grid" id="memoryGrid" aria-live="polite">
+        <p class="gallery-loading">Preparing the exhibition</p>
+      </div>
+      <div class="section-foot" id="memoryFoot" hidden>
+        <div class="section-foot__rule" aria-hidden="true"></div>
+        <button class="btn" id="seeAllMemories" type="button">
+          See all memories
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="section-foot__count" id="memoryCount">The complete collection</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ VIDEO GALLERY ============================ -->
+  <section class="room room--video" id="video" aria-labelledby="videoTitle">
+    <span class="room__numeral" aria-hidden="true">02</span>
+    <div class="wrap">
+      <header class="room-head reveal">
+        <p class="eyebrow">Room 02 · The Video Gallery</p>
+        <h2 id="videoTitle">The moments better<br><em>in motion.</em></h2>
+        <p class="lede">Little films of you, of us, of days that deserved more than a camera roll. Nothing plays until you ask it to.</p>
+      </header>
+      <div class="video-grid" id="videoGrid" aria-live="polite">
+        <p class="gallery-loading">Preparing the projection room</p>
+      </div>
+      <div class="section-foot" id="videoFoot" hidden>
+        <div class="section-foot__rule" aria-hidden="true"></div>
+        <button class="btn" id="seeAllVideos" type="button">
+          See all videos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="section-foot__count" id="videoCount">The complete collection</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ GARDEN GALLERY ============================ -->
+  <section class="room room--garden" id="garden" aria-labelledby="gardenTitle">
+    <span class="room__numeral" aria-hidden="true">03</span>
+    <div class="wrap">
+      <header class="room-head room-head--center reveal">
+        <p class="eyebrow eyebrow--center">Room 03 · The Garden Gallery</p>
+        <h2 id="gardenTitle">A garden that<br><em>never wilts.</em></h2>
+        <p class="lede">Pick a bouquet. I will tell you what I would say if I could hand you flowers right now — and these ones will still be here tomorrow.</p>
+      </header>
+      <div class="garden-layout">
+        <div class="bouquet-picker reveal">
+          <p class="bouquet-picker__title">Choose your flowers</p>
+          <div class="bouquet-options" role="tablist" aria-label="Choose a bouquet">
+            <button class="bouquet-option" type="button" role="tab" aria-selected="true" aria-controls="bouquetStage" data-bouquet="roses">
+              <span class="bouquet-option__swatch" style="--sw:#D9A3B8" aria-hidden="true"></span>
+              <span class="bouquet-option__name">Roses</span><span class="bouquet-option__no">01</span>
+            </button>
+            <button class="bouquet-option" type="button" role="tab" aria-selected="false" aria-controls="bouquetStage" data-bouquet="tulips">
+              <span class="bouquet-option__swatch" style="--sw:#E8BFD0" aria-hidden="true"></span>
+              <span class="bouquet-option__name">Tulips</span><span class="bouquet-option__no">02</span>
+            </button>
+            <button class="bouquet-option" type="button" role="tab" aria-selected="false" aria-controls="bouquetStage" data-bouquet="sunflowers">
+              <span class="bouquet-option__swatch" style="--sw:#F0E0AE" aria-hidden="true"></span>
+              <span class="bouquet-option__name">Sunflowers</span><span class="bouquet-option__no">03</span>
+            </button>
+            <button class="bouquet-option" type="button" role="tab" aria-selected="false" aria-controls="bouquetStage" data-bouquet="lilies">
+              <span class="bouquet-option__swatch" style="--sw:#F3E7EE" aria-hidden="true"></span>
+              <span class="bouquet-option__name">Lilies</span><span class="bouquet-option__no">04</span>
+            </button>
+            <button class="bouquet-option" type="button" role="tab" aria-selected="false" aria-controls="bouquetStage" data-bouquet="daisies">
+              <span class="bouquet-option__swatch" style="--sw:#FBF7F2" aria-hidden="true"></span>
+              <span class="bouquet-option__name">Daisies</span><span class="bouquet-option__no">05</span>
+            </button>
+            <button class="bouquet-option" type="button" role="tab" aria-selected="false" aria-controls="bouquetStage" data-bouquet="mixed">
+              <span class="bouquet-option__swatch" style="--sw:linear-gradient(135deg,#EBCBD8,#DCD3F0,#C9E4DF)" aria-hidden="true"></span>
+              <span class="bouquet-option__name">Mixed</span><span class="bouquet-option__no">06</span>
+            </button>
+          </div>
+          <p class="bouquet-picker__note">Every bouquet comes with something I mean.</p>
+        </div>
+        <div class="garden-stage reveal" id="bouquetStage" role="tabpanel" aria-live="polite">
+          <div class="garden-arch">
+            <div class="bouquet-art" id="bouquetArt"></div>
+          </div>
+          <div class="garden-note">
+            <p class="garden-note__no" id="bouquetNo">Bouquet No. 01</p>
+            <h3 id="bouquetName">Roses</h3>
+            <div class="garden-note__rule" aria-hidden="true"></div>
+            <p class="garden-note__message" id="bouquetMessage">Roses feel almost too obvious for you — but I like obvious things when they are true. You are my peace, Mehak. The softest, surest part of my life.</p>
+            <button class="text-btn" type="button" id="anotherBouquet">
+              Choose another bouquet
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ LETTER ARCHIVE ============================ -->
+  <section class="room room--letters" id="letters" aria-labelledby="lettersTitle">
+    <span class="room__numeral" aria-hidden="true">04</span>
+    <div class="wrap">
+      <header class="room-head reveal">
+        <p class="eyebrow">Room 04 · The Letter Archive</p>
+        <h2 id="lettersTitle">Words for the days<br><em>you need them.</em></h2>
+        <p class="lede">Nine letters, each one waiting for a different kind of day. Open the one that finds you. There is no wrong order, and no need to read them all at once.</p>
+      </header>
+      <div class="letter-grid" id="letterGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ GIFT ROOM ============================ -->
+  <section class="room room--gifts" id="gifts" aria-labelledby="giftsTitle">
+    <span class="room__numeral" aria-hidden="true">05</span>
+    <div class="wrap">
+      <header class="room-head reveal">
+        <p class="eyebrow">Room 05 · The Gift Room</p>
+        <h2 id="giftsTitle">Small things,<br><em>wrapped in love.</em></h2>
+        <p class="lede">Nothing in this room costs anything. Everything in it is yours. Open things in any order — the ribbon is only for show.</p>
+      </header>
+      <div class="gift-grid">
+        <button class="gift-card gift-card--present reveal" type="button" data-gift="present">
+          <span class="gift-card__top"><span class="gift-card__no">Gift No. 01</span>
+            <svg class="gift-card__glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="9" y="18" width="30" height="22" rx="1"/><path d="M7 11h34v8H7zM24 11v29"/><path d="M24 11c-3-6-10-5-9-1 .8 3.2 5.6 2 9 1zM24 11c3-6 10-5 9-1-.8 3.2-5.6 2-9 1z"/></svg>
+          </span>
+          <span class="gift-card__body"><span class="gift-card__kicker">Something wrapped</span><h3>The Wrapped Present</h3><p>A small box with a ribbon I tied badly on purpose. It is not the box that matters.</p></span>
+          <span class="gift-card__bottom"><span class="gift-card__open">Unwrap it</span><span class="gift-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span></span>
+        </button>
+        <button class="gift-card gift-card--compliments reveal" type="button" data-gift="compliments">
+          <span class="gift-card__top"><span class="gift-card__no">Gift No. 02</span>
+            <svg class="gift-card__glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="12" y="13" width="26" height="29" rx="1"/><path d="M17 8h22v27"/><path d="M19 24h12M19 30h9"/><path d="M18 19c0-2 3-3 4-1"/></svg>
+          </span>
+          <span class="gift-card__body"><span class="gift-card__kicker">One at a time</span><h3>A Collection of Compliments</h3><p>Things I mean about you, drawn like cards.</p></span>
+          <span class="gift-card__bottom"><span class="gift-card__open">Draw a compliment</span><span class="gift-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span></span>
+        </button>
+        <button class="gift-card gift-card--jar reveal" type="button" data-gift="jar">
+          <span class="gift-card__top"><span class="gift-card__no">Gift No. 03</span>
+            <svg class="gift-card__glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M15 15h18l3 8v16a3 3 0 01-3 3H15a3 3 0 01-3-3V23z"/><path d="M15 11h18v4H15zM20 25h8M20 31h8M20 37h5"/></svg>
+          </span>
+          <span class="gift-card__body"><span class="gift-card__kicker">A jar full</span><h3>A Jar of Reasons</h3><p>Little folded notes. Every one of them is about you.</p></span>
+          <span class="gift-card__bottom"><span class="gift-card__open">Pull a reason</span><span class="gift-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span></span>
+        </button>
+        <button class="gift-card gift-card--photo reveal" type="button" data-gift="photo">
+          <span class="gift-card__top"><span class="gift-card__no">Gift No. 04</span>
+            <svg class="gift-card__glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="8" y="11" width="32" height="26" rx="1"/><circle cx="18" cy="21" r="4"/><path d="M8 32l9-8 7 6 6-5 10 8"/></svg>
+          </span>
+          <span class="gift-card__body"><span class="gift-card__kicker">Behind a little curtain</span><h3>A Hidden Photograph</h3><p>One photograph I keep coming back to.</p></span>
+          <span class="gift-card__bottom"><span class="gift-card__open">Reveal it</span><span class="gift-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span></span>
+        </button>
+        <button class="gift-card gift-card--surprise reveal" type="button" data-gift="surprise">
+          <span class="gift-card__top"><span class="gift-card__no">Gift No. 05</span>
+            <svg class="gift-card__glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="7" y="15" width="34" height="22" rx="1"/><path d="M8 16l16 12 16-12"/><path d="M24 3l1.5 4.7L30 9.4l-4.5 1.7L24 16l-1.5-4.9L18 9.4l4.5-1.7z"/></svg>
+          </span>
+          <span class="gift-card__body"><span class="gift-card__kicker">Sealed for you</span><h3>A Surprise Message</h3><p>No hints. That would ruin the surprise.</p></span>
+          <span class="gift-card__bottom"><span class="gift-card__open">Open the envelope</span><span class="gift-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span></span>
+        </button>
+        <button class="gift-card gift-card--coupon reveal" type="button" data-gift="coupon">
+          <span class="gift-card__top"><span class="gift-card__no">Gift No. 06</span>
+            <svg class="gift-card__glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M7 16h34v7a3 3 0 000 6v7H7v-7a3 3 0 000-6z"/><path d="M18 20v12" stroke-dasharray="2 4"/><path d="M24 25h12M24 30h8"/></svg>
+          </span>
+          <span class="gift-card__body"><span class="gift-card__kicker">No expiry</span><h3>A Gift Coupon</h3><p>Redeemable whenever you like, for something money cannot buy.</p></span>
+          <span class="gift-card__bottom"><span class="gift-card__open">See the coupon</span><span class="gift-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span></span>
+        </button>
+        <button class="gift-card gift-card--penguin reveal" type="button" data-gift="penguin">
+          <span class="gift-card__body">
+            <span class="gift-card__top"><span class="gift-card__no">Gift No. 07</span></span>
+            <span class="gift-card__kicker" style="margin-top:18px">For my favourite penguin</span>
+            <h3>A Penguin Surprise</h3>
+            <p>There is an entire exhibit here because of a nickname. Poke the penguin and find out.</p>
+          </span>
+          <svg class="penguin-mini" viewBox="0 0 160 190" aria-hidden="true">
+            <ellipse cx="80" cy="179" rx="45" ry="6" fill="rgba(56,49,61,.12)"/>
+            <path d="M32 88c0-41 22-67 48-67s48 26 48 67v50c0 24-21 38-48 38s-48-14-48-38z" fill="#3E3545"/>
+            <ellipse cx="80" cy="124" rx="32" ry="47" fill="#FFFDFE"/>
+            <ellipse cx="43" cy="119" rx="11" ry="27" fill="#3E3545" transform="rotate(12 43 119)"/>
+            <ellipse cx="117" cy="119" rx="11" ry="27" fill="#3E3545" transform="rotate(-12 117 119)"/>
+            <ellipse cx="66" cy="103" rx="3.1" ry="4" fill="#38313D"/>
+            <ellipse cx="94" cy="103" rx="3.1" ry="4" fill="#38313D"/>
+            <ellipse cx="55" cy="114" rx="7" ry="4" fill="#EBCBD8"/>
+            <ellipse cx="105" cy="114" rx="7" ry="4" fill="#EBCBD8"/>
+            <path d="M72 112h16l-8 10z" fill="#E8CE9B"/>
+            <path d="M52 143c16 8 40 8 56 0" fill="none" stroke="#DCD3F0" stroke-width="8" stroke-linecap="round"/>
+            <path d="M56 150c-8 10-6 22 4 26" fill="none" stroke="#DCD3F0" stroke-width="7" stroke-linecap="round"/>
+            <ellipse cx="64" cy="175" rx="11" ry="5" fill="#DCAFC2"/>
+            <ellipse cx="96" cy="175" rx="11" ry="5" fill="#DCAFC2"/>
+          </svg>
+          <span class="gift-card__bottom"><span class="gift-card__open">Poke the penguin</span><span class="gift-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 19L19 5M9 5h10v10"/></svg></span></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ FUTURE WING ============================ -->
+  <section class="room room--future" id="future" aria-labelledby="futureTitle">
+    <span class="room__numeral" aria-hidden="true">06</span>
+    <div class="wrap">
+      <header class="room-head reveal">
+        <p class="eyebrow">Room 06 · The Future Wing</p>
+        <h2 id="futureTitle">Everything still<br><em>ahead of us.</em></h2>
+        <p class="lede">A wing for the things we have not done yet. Consider these invitations, not plans — the calendar is ours to fill.</p>
+      </header>
+      <!-- Featured milestone -->
+      <div class="future-feature reveal">
+        <div>
+          <p class="future-feature__label">The featured milestone</p>
+          <p class="future-date">14 JANUARY 2027</p>
+          <h3>Our First Anniversary</h3>
+          <p class="future-feature__copy">The first of many. This exhibit is still ahead of us — and it already has a place on our wall.</p>
+        </div>
+        <div class="future-count">
+          <p class="future-count__eyebrow">Still to come</p>
+          <b id="countdownDays">—</b>
+          <span>days until the day</span>
+          <p class="future-count__note">One whole year of us.</p>
+        </div>
+      </div>
+      <div class="idea-grid">
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">01</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M12 21V10M12 14c-4 0-6-2-6-6 4 0 6 2 6 6zM12 12c4 0 6-2 6-6-4 0-6 2-6 6z"/></svg></div>
+          <h3>A peaceful garden</h3><p>Somewhere green and unhurried, with a bench and nowhere else to be.</p>
+        </article>
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">02</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M5 9h11v7a3 3 0 01-3 3H8a3 3 0 01-3-3zM16 11h2a2 2 0 010 4h-2M4 21h13"/><path d="M9 5c0-1 1-1 1-2M12 5c0-1 1-1 1-2"/></svg></div>
+          <h3>A beautiful café</h3><p>A corner table, something warm to drink, and a long conversation.</p>
+        </article>
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">03</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M3 17l5-6 4 4 3-3 6 5"/><path d="M3 20h18"/><circle cx="17" cy="6" r="2"/></svg></div>
+          <h3>A day trip</h3><p>Anywhere new. The destination matters less than the company.</p>
+        </article>
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">04</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M3 19l6-9 4 5 3-4 5 8z"/><circle cx="17" cy="6" r="2"/></svg></div>
+          <h3>A scenic place</h3><p>Mountains, water, or a view that makes us go quiet for a second.</p>
+        </article>
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">05</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M4 4h6v16H4zM14 4h6v16h-6zM10 6h4M10 18h4"/></svg></div>
+          <h3>Books &amp; art</h3><p>A bookstore or a gallery, where we take our time and leave with something.</p>
+        </article>
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">06</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="1"/><path d="M3 10h18M7 16h4"/><path d="M8 3h8"/></svg></div>
+          <h3>A film together</h3><p>Big screen, shared popcorn, your hand in mine in the dark.</p>
+        </article>
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">07</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M4 12h16M12 4v16"/><circle cx="12" cy="12" r="8"/></svg></div>
+          <h3>Something new</h3><p>A food we have never tried, a skill we are bad at, an adventure of our choosing.</p>
+        </article>
+        <article class="idea reveal">
+          <div class="idea__top"><span class="idea__no">08</span><svg class="idea__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-2h5L16 7"/></svg></div>
+          <h3>A camera and a day</h3><p>No rush, no plan — just photographs we will be glad we took.</p>
+        </article>
+      </div>
+      <p class="future-note">These are possibilities, not promises. We have time.</p>
+    </div>
+  </section>
+
+  <!-- ============================ FINAL EXHIBIT ============================ -->
+  <section class="room room--final" id="final" aria-labelledby="finalTitle">
+    <span class="room__numeral" aria-hidden="true">07</span>
+    <div class="wrap">
+      <div class="final-inner">
+        <p class="eyebrow eyebrow--center reveal">Room 07 · The Final Exhibit</p>
+        <h2 id="finalTitle" class="reveal">One last room.</h2>
+        <p class="lede reveal">Some things do not belong behind glass. This last exhibit is a letter I have been saving for the end of the museum.</p>
+        <div class="final-niche reveal">
+          <p class="final-niche__label">The final letter · For Mehak</p>
+          <button class="final-letter" type="button" id="openFinalLetter" aria-label="Open Piyush's final letter to Mehak">
+            <span class="final-letter__seal">P</span>
+            <span class="final-letter__to">For Mehak</span>
+          </button>
+          <div class="final-pedestal" aria-hidden="true"></div>
+          <p class="final-niche__hint">Click the letter to open it</p>
+        </div>
+        <p class="final-lines reveal">SOME THINGS ARE TOO SPECIAL TO BE HUNG ON A WALL.<br>THEY LIVE WITH US.</p>
+        <p class="final-dedication reveal">MEHAK, THIS MUSEUM IS YOURS.</p>
+        <button class="btn final-return reveal" type="button" data-go="atrium">
+          Return to the Atrium
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>Mehak &amp; Piyush <span class="dot" aria-hidden="true"></span> A Museum of Little Forevers</span>
+  <span>Curated with love, 2026</span>
+  <span>Open whenever you need it</span>
+</footer>
+
+<!-- ============================ COMPLETE MEMORY GALLERY ============================ -->
+<div class="view" id="memoryView" role="dialog" aria-modal="true" aria-labelledby="memoryViewTitle" hidden>
+  <div class="view__bar">
+    <button class="text-btn" type="button" data-close-view="memoryView">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>
+      Back to the museum
+    </button>
+    <p class="view__bar-title" id="memoryViewTitle">The Memory Gallery</p>
+    <p class="view__bar-count" id="memoryViewCount">The complete collection</p>
+  </div>
+  <div class="view__scroll" id="memoryViewScroll">
+    <div class="view__inner">
+      <header class="view__head">
+        <p class="eyebrow">The complete collection</p>
+        <h2>Every photograph,<br><em>all together.</em></h2>
+        <p class="lede">The whole wall, without the crowd. Click any photograph to see it larger, then move through the collection with the arrows.</p>
+      </header>
+      <div class="masonry" id="memoryMasonry"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ COMPLETE VIDEO GALLERY ============================ -->
+<div class="view" id="videoView" role="dialog" aria-modal="true" aria-labelledby="videoViewTitle" hidden>
+  <div class="view__bar">
+    <button class="text-btn" type="button" data-close-view="videoView">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>
+      Back to the museum
+    </button>
+    <p class="view__bar-title" id="videoViewTitle">The Video Gallery</p>
+    <p class="view__bar-count" id="videoViewCount">The complete collection</p>
+  </div>
+  <div class="view__scroll">
+    <div class="view__inner">
+      <header class="view__head">
+        <p class="eyebrow">The complete collection</p>
+        <h2>Every film,<br><em>in one room.</em></h2>
+        <p class="lede">Choose a film and it will open in a larger player. Nothing begins until you press play.</p>
+      </header>
+      <div class="video-grid" id="videoFullGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ PHOTOGRAPH LIGHTBOX ============================ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photograph viewer" hidden>
+  <button class="lightbox__close" type="button" id="lightboxClose" aria-label="Close viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__prev" type="button" id="lightboxPrev" aria-label="Previous photograph">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <figure class="lightbox__figure">
+    <img id="lightboxImg" src="" alt="">
+    <figcaption class="lightbox__cap">
+      <span id="lightboxCap">Exhibit</span>
+      <span class="hairline" aria-hidden="true"></span>
+      <span id="lightboxTotal"></span>
+    </figcaption>
+  </figure>
+  <button class="lightbox__nav lightbox__next" type="button" id="lightboxNext" aria-label="Next photograph">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <p class="lightbox__hint">Use ← → to move between photographs · Esc to close</p>
+</div>
+
+<!-- ============================ SHARED MODAL ============================ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__dialog" id="modalDialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" type="button" id="modalClose" aria-label="Close" data-modal-close>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   MEHAK — A MUSEUM OF LITTLE FOREVERs
+   ============================================================ */
+(function(){
+  'use strict';
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const body = document.body;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pad = n => String(n).padStart(2, '0');
+
+  /* ------------------------------------------------------------
+     MEDIA LISTS
+     Add or remove numbered files here. Nothing else needs editing.
+     Photographs: photo1.jpg, photo2.jpg, photo3.jpg ...
+     Videos:      video1.mp4, video2.mp4, video3.mp4 ...
+     ------------------------------------------------------------ */
+  const PHOTOS = [
+    'photo1.jpg',
+    'photo2.jpg',
+    'photo3.jpg',
+    'photo4.jpg',
+    'photo5.jpg',
+    'photo6.jpg',
+    'photo7.jpg',
+    'photo8.jpg',
+    'photo9.jpg',
+    'photo10.jpg',
+    'photo11.jpg',
+    'photo12.jpg'
+  ];
+
+  const VIDEOS = [
+    'video1.mp4',
+    'video2.mp4',
+    'video3.mp4',
+    'video4.mp4',
+    'video5.mp4',
+    'video6.mp4',
+    'video7.mp4',
+    'video8.mp4'
+  ];
+
+  let photoData = [];
+  let videoData = [];
+  let lockCount = 0;
+  let lastModalFocus = null;
+  let lastLightboxFocus = null;
+
+  /* ---------- scroll lock ---------- */
+  function lockScroll(){
+    lockCount += 1;
+    body.classList.add('locked');
+  }
+  function unlockScroll(){
+    lockCount = Math.max(0, lockCount - 1);
+    if (lockCount === 0) body.classList.remove('locked');
+  }
+  function forceUnlockScroll(){
+    lockCount = 0;
+    body.classList.remove('locked');
+  }
+
+  /* ---------- entrance ---------- */
+  const entrance = $('#entrance');
+  function enterMuseum(){
+    if (body.classList.contains('entered')) return;
+    body.classList.add('entered');
+    forceUnlockScroll();
+    window.setTimeout(() => { entrance.hidden = true; }, 1150);
+  }
+  $('#enterMuseum').addEventListener('click', enterMuseum);
+
+  /* ---------- navigation ---------- */
+  const menuBtn = $('#menuBtn');
+  const menuPanel = $('#menuPanel');
+  let menuOpen = false;
+
+  function setMenu(open){
+    menuOpen = open;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuPanel.classList.toggle('is-open', open);
+  }
+  function closeMenu(){ if (menuOpen) setMenu(false); }
+
+  menuBtn.addEventListener('click', event => {
+    event.stopPropagation();
+    setMenu(!menuOpen);
+  });
+  document.addEventListener('click', event => {
+    if (!menuOpen) return;
+    if (menuPanel.contains(event.target) || menuBtn.contains(event.target)) return;
+    setMenu(false);
+  });
+
+  function closeAllOverlays(){
+    closeModal();
+    closeLightbox();
+    closeView('memoryView');
+    closeView('videoView');
+    closeMenu();
+  }
+
+  function goTo(id){
+    const target = document.getElementById(id);
+    if (!target) return;
+    closeAllOverlays();
+    if (!body.classList.contains('entered')) enterMuseum();
+    target.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start'
+    });
+  }
+
+  document.addEventListener('click', event => {
+    const trigger = event.target.closest('[data-go]');
+    if (!trigger) return;
+    event.preventDefault();
+    goTo(trigger.dataset.go);
+  });
+
+  /* ---------- reveal on scroll ---------- */
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+  $$('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ---------- scroll spy for the room menu ---------- */
+  const roomIds = ['atrium', 'memory', 'video', 'garden', 'letters', 'gifts', 'future', 'final'];
+  const roomLinks = $$('.menu-panel__links [data-go]');
+  const spyObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      roomLinks.forEach(link => {
+        if (link.dataset.go === entry.target.id) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    });
+  }, { rootMargin: '-42% 0px -52% 0px', threshold: 0 });
+  roomIds.forEach(id => {
+    const section = document.getElementById(id);
+    if (section) spyObserver.observe(section);
+  });
+
+  /* ---------- full gallery views ---------- */
+  function openView(id){
+    const view = document.getElementById(id);
+    if (!view) return;
+    closeMenu();
+    view.hidden = false;
+    lockScroll();
+    const scroller = view.querySelector('.view__scroll');
+    if (scroller) scroller.scrollTop = 0;
+    const closeBtn = view.querySelector('[data-close-view]');
+    if (closeBtn) window.requestAnimationFrame(() => closeBtn.focus({ preventScroll: true }));
+  }
+
+  function closeView(id){
+    const view = document.getElementById(id);
+    if (!view || view.hidden) return;
+    view.hidden = true;
+    unlockScroll();
+  }
+
+  document.addEventListener('click', event => {
+    const trigger = event.target.closest('[data-close-view]');
+    if (!trigger) return;
+    closeView(trigger.dataset.closeView);
+  });
+
+  /* ---------- shared modal ---------- */
+  const modal = $('#modal');
+  const modalDialog = $('#modalDialog');
+  const modalBody = $('#modalBody');
+
+  function stopModalVideos(){
+    $$('video', modalBody).forEach(video => {
+      try { video.pause(); } catch (error) { /* no-op */ }
+      video.removeAttribute('src');
+      try { video.load(); } catch (error) { /* no-op */ }
+    });
+  }
+
+  function openModal(html, options = {}){
+    const wasOpen = !modal.hidden;
+    if (wasOpen) stopModalVideos();
+    else lastModalFocus = document.activeElement;
+    modalBody.innerHTML = html;
+    modalDialog.className = 'modal__dialog' + (options.dialogClass ? ' ' + options.dialogClass : '');
+    modal.hidden = false;
+    if (!wasOpen) lockScroll();
+    closeMenu();
+    modalDialog.scrollTop = 0;
+    window.requestAnimationFrame(() => {
+      const closeBtn = $('#modalClose');
+      if (closeBtn) closeBtn.focus({ preventScroll: true });
+    });
+    if (typeof options.onOpen === 'function') options.onOpen(modalBody);
+  }
+
+  function closeModal(){
+    if (modal.hidden) return;
+    stopModalVideos();
+    modal.hidden = true;
+    modalBody.innerHTML = '';
+    modalDialog.className = 'modal__dialog';
+    unlockScroll();
+    if (lastModalFocus && lastModalFocus.isConnected) {
+      lastModalFocus.focus({ preventScroll: true });
+    }
+  }
+
+  document.addEventListener('click', event => {
+    if (!event.target.closest('[data-modal-close]')) return;
+    closeModal();
+  });
+
+  /* ---------- lightbox ---------- */
+  const lightbox = $('#lightbox');
+  const lightboxImg = $('#lightboxImg');
+  const lightboxCap = $('#lightboxCap');
+  const lightboxTotal = $('#lightboxTotal');
+  let lightboxIndex = 0;
+
+  function updateLightbox(){
+    if (!photoData.length) return;
+    const item = photoData[lightboxIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = 'Photograph ' + (lightboxIndex + 1) + ' from Piyush and Mehak\'s collection';
+    lightboxCap.textContent = 'Exhibit No. ' + pad(lightboxIndex + 1);
+    lightboxTotal.textContent = pad(lightboxIndex + 1) + ' / ' + pad(photoData.length);
+    const multiple = photoData.length > 1;
+    $('#lightboxPrev').style.visibility = multiple ? 'visible' : 'hidden';
+    $('#lightboxNext').style.visibility = multiple ? 'visible' : 'hidden';
+  }
+
+  function openLightbox(index){
+    if (!photoData.length) return;
+    lastLightboxFocus = document.activeElement;
+    lightboxIndex = (index + photoData.length) % photoData.length;
+    closeMenu();
+    lightbox.hidden = false;
+    lockScroll();
+    updateLightbox();
+    $('#lightboxClose').focus({ preventScroll: true });
+  }
+
+  function closeLightbox(){
+    if (lightbox.hidden) return;
+    lightbox.hidden = true;
+    lightboxImg.removeAttribute('src');
+    unlockScroll();
+    if (lastLightboxFocus && lastLightboxFocus.isConnected) {
+      lastLightboxFocus.focus({ preventScroll: true });
+    }
+  }
+
+  function stepLightbox(direction){
+    if (!photoData.length) return;
+    lightboxIndex = (lightboxIndex + direction + photoData.length) % photoData.length;
+    updateLightbox();
+  }
+
+  $('#lightboxClose').addEventListener('click', closeLightbox);
+  $('#lightboxPrev').addEventListener('click', () => stepLightbox(-1));
+  $('#lightboxNext').addEventListener('click', () => stepLightbox(1));
+
+  /* ---------- photographs ---------- */
+  function preloadPhoto(src){
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => resolve({ src: src, width: img.naturalWidth, height: img.naturalHeight });
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  function photoFigure(item, index, masonry){
+    const figure = document.createElement('figure');
+    let classes = 'photo';
+    if (!masonry) classes += ' photo--slot-' + (index % 7);
+    if (index % 4 === 1 || index % 7 === 4) classes += ' photo--bare';
+    figure.className = classes;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'photo__frame';
+    button.setAttribute('aria-label', 'Open photograph ' + (index + 1) + ' of ' + photoData.length);
+    button.dataset.index = String(index);
+
+    const img = document.createElement('img');
+    img.src = item.src;
+    img.alt = 'Photograph ' + (index + 1) + ' from Piyush and Mehak\'s collection';
+    img.loading = masonry ? 'lazy' : (index > 2 ? 'lazy' : 'eager');
+    img.decoding = 'async';
+    button.appendChild(img);
+    button.addEventListener('click', () => openLightbox(index));
+    figure.appendChild(button);
+
+    const label = document.createElement('div');
+    label.className = 'photo__label';
+    label.innerHTML = '<span>Exhibit No. ' + pad(index + 1) + '</span><span class="hairline" aria-hidden="true"></span><span>The Memory Gallery</span>';
+    figure.appendChild(label);
+    return figure;
+  }
+
+  function emptyState(kind){
+    const wrap = document.createElement('div');
+    wrap.className = 'empty-state';
+    const isPhoto = kind === 'photo';
+    wrap.innerHTML =
+      '<svg viewBox="0 0 60 80" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">' +
+        '<path d="M4 78V32a26 26 0 0152 0v46"/>' +
+        '<path d="M12 78V34a18 18 0 0136 0v44" opacity=".6"/>' +
+        '<circle cx="30" cy="40" r="5" opacity=".7"/>' +
+        '<path d="M6 78h48" opacity=".6"/>' +
+      '</svg>' +
+      '<h3>' + (isPhoto ? 'This wall is waiting.' : 'The projector is warming up.') + '</h3>' +
+      '<p>' + (isPhoto
+        ? 'Photographs will appear here as they are added to the collection.'
+        : 'Films will appear here as they are added to the collection.') + '</p>';
+    return wrap;
+  }
+
+  function renderMemoryGalleries(){
+    const grid = $('#memoryGrid');
+    const masonry = $('#memoryMasonry');
+    const foot = $('#memoryFoot');
+    const count = $('#memoryCount');
+    const viewCount = $('#memoryViewCount');
+    grid.innerHTML = '';
+    masonry.innerHTML = '';
+
+    foot.hidden = false;
+    $('#seeAllMemories').addEventListener('click', () => openView('memoryView'));
+
+    if (!photoData.length){
+      grid.appendChild(emptyState('photo'));
+      masonry.appendChild(emptyState('photo'));
+      count.textContent = 'The collection is being prepared';
+      viewCount.textContent = 'The collection is being prepared';
+      return;
+    }
+
+    photoData.slice(0, 7).forEach((item, index) => {
+      grid.appendChild(photoFigure(item, index, false));
+    });
+    photoData.forEach((item, index) => {
+      masonry.appendChild(photoFigure(item, index, true));
+    });
+
+    const noun = photoData.length === 1 ? 'photograph' : 'photographs';
+    count.textContent = photoData.length + ' ' + noun + ' in the complete collection';
+    viewCount.textContent = photoData.length + ' ' + noun;
+  }
+
+  Promise.all(PHOTOS.map(preloadPhoto)).then(results => {
+    photoData = results.filter(Boolean);
+    renderMemoryGalleries();
+  });
+
+  /* ---------- videos ---------- */
+  function probeVideo(src){
+    return new Promise(resolve => {
+      const video = document.createElement('video');
+      let settled = false;
+      const finish = ok => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timer);
+        video.removeAttribute('src');
+        try { video.load(); } catch (error) { /* no-op */ }
+        resolve(ok ? src : null);
+      };
+      const timer = window.setTimeout(() => finish(false), 6000);
+      video.preload = 'metadata';
+      video.muted = true;
+      video.playsInline = true;
+      video.addEventListener('loadedmetadata', () => finish(true), { once: true });
+      video.addEventListener('error', () => finish(false), { once: true });
+      video.src = src;
+      try { video.load(); } catch (error) { finish(false); }
+    });
+  }
+
+  function videoCard(src, index){
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'video-plate';
+    button.setAttribute('aria-label', 'Open video ' + (index + 1) + ' of ' + videoData.length);
+    button.innerHTML =
+      '<video src="' + src + '#t=0.1" preload="metadata" muted playsinline aria-hidden="true" tabindex="-1"></video>' +
+      '<span class="video-plate__shade" aria-hidden="true"></span>' +
+      '<span class="video-plate__top"><span>The Video Gallery</span><span>Film ' + pad(index + 1) + '</span></span>' +
+      '<span class="video-plate__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>' +
+      '<span class="video-plate__bottom"><strong>Film No. ' + pad(index + 1) + '</strong><span>Play</span></span>';
+    const video = button.querySelector('video');
+    video.addEventListener('loadedmetadata', () => {
+      try { video.currentTime = 0.1; } catch (error) { /* no-op */ }
+    }, { once: true });
+    button.addEventListener('click', () => openVideo(index));
+    return button;
+  }
+
+  function videoEmptyState(){
+    const wrap = emptyState('video');
+    wrap.classList.add('video-empty');
+    return wrap;
+  }
+
+  function renderVideoGalleries(){
+    const grid = $('#videoGrid');
+    const fullGrid = $('#videoFullGrid');
+    const foot = $('#videoFoot');
+    grid.innerHTML = '';
+    fullGrid.innerHTML = '';
+
+    foot.hidden = false;
+    $('#seeAllVideos').addEventListener('click', () => openView('videoView'));
+
+    if (!videoData.length){
+      grid.appendChild(videoEmptyState());
+      fullGrid.appendChild(videoEmptyState());
+      $('#videoCount').textContent = 'The collection is being prepared';
+      $('#videoViewCount').textContent = 'The collection is being prepared';
+      return;
+    }
+
+    videoData.slice(0, 6).forEach((src, index) => grid.appendChild(videoCard(src, index)));
+    videoData.forEach((src, index) => fullGrid.appendChild(videoCard(src, index)));
+    const noun = videoData.length === 1 ? 'film' : 'films';
+    $('#videoCount').textContent = videoData.length + ' ' + noun + ' in the complete collection';
+    $('#videoViewCount').textContent = videoData.length + ' ' + noun;
+  }
+
+  Promise.all(VIDEOS.map(probeVideo)).then(results => {
+    videoData = results.filter(Boolean);
+    renderVideoGalleries();
+  });
+
+  function openVideo(index){
+    if (!videoData.length) return;
+    const src = videoData[index];
+    openModal(
+      '<video class="video-player" src="' + src + '" controls playsinline preload="metadata"></video>' +
+      '<div class="video-player__bar">' +
+        '<p>Film No. ' + pad(index + 1) + ' · The Video Gallery</p>' +
+        '<div class="video-player__nav">' +
+          '<button type="button" data-video-step="-1" aria-label="Previous film"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+          '<button type="button" data-video-step="1" aria-label="Next film"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 5l7 7-7 7"/></svg></button>' +
+        '</div>' +
+      '</div>',
+      {
+        dialogClass: 'modal__dialog--video',
+        onOpen: panel => {
+          $$('[data-video-step]', panel).forEach(button => {
+            button.addEventListener('click', () => {
+              const next = (index + Number(button.dataset.videoStep) + videoData.length) % videoData.length;
+              openVideo(next);
+            });
+          });
+        }
+      }
+    );
+  }
+
+  /* ---------- letters ---------- */
+  const LETTERS = [
+    {
+      title: 'Open when you miss me',
+      body:
+        '<p>If you opened this, you are missing me. I am probably missing you at the same time, somewhere in the middle of a day that does not feel quite right without you in it.</p>' +
+        '<p>I do not have a grand cure for waiting. I only have this: you are not a small part of my life that I visit when everything else is finished. You are the quiet in the middle of it.</p>' +
+        '<p>Come back to this page whenever you need to. I will be here.</p>'
+    },
+    {
+      title: 'Open when you feel sad',
+      body:
+        '<p>You do not have to be okay in front of me. You never have to tidy your sadness before letting me see it.</p>' +
+        '<p>I know I cannot carry it for you. But I can sit beside you while you feel it, and I can remind you that nothing about you becomes less lovable on a hard day.</p>' +
+        '<p>You are still you. Still my favourite person. Still my peace.</p>' +
+        '<p>Breathe. Then tell me what is heavy — or do not. I am not going anywhere either way.</p>'
+    },
+    {
+      title: 'Open when you need reassurance',
+      body:
+        '<p>I want you to know that what I feel for you is not based on you being happy, easy, or perfectly put together. It is based on you.</p>' +
+        '<p>You are patient with me. You understand me. You support me. You are caring in ways you probably do not even notice — and I notice.</p>' +
+        '<p>If your mind is telling you that you are too much, or not enough, it is wrong. You are exactly the person I want. My safe place.</p>'
+    },
+    {
+      title: 'Open when you cannot sleep',
+      body:
+        '<p>It is late, and you are awake again.</p>' +
+        '<p>Put the phone down after this one, okay? Close your eyes. Let your shoulders drop. There is nothing you have to solve tonight.</p>' +
+        '<p>Think of something soft — a slow morning, a song you love, a sketch half-finished on your desk. Think of me thinking of you.</p>' +
+        '<p>Sleep, my penguin. The world can wait until morning.</p>'
+    },
+    {
+      title: 'Open when you need a smile',
+      body:
+        '<p>A few things, in no particular order, that I hope make you smile:</p>' +
+        '<p>The fact that our story starts with you running away from me. You came back. I am glad you came back.</p>' +
+        '<p>The way you can be so gentle and so childish in the same afternoon.</p>' +
+        '<p>The way you love sleeping, and still somehow look like you are planning something.</p>' +
+        '<p>The way your face changes when you are trying not to laugh.</p>' +
+        '<p>You, generally. You specifically. You entirely.</p>'
+    },
+    {
+      title: 'Things I appreciate about you',
+      body:
+        '<p>I could make this list longer, but some things deserve to be said plainly:</p>' +
+        '<ul class="letter-list">' +
+          '<li>Your patience — the real kind, the kind that stays.</li>' +
+          '<li>Your understanding, even when I am not easy to understand.</li>' +
+          '<li>The way you support me without making a performance of it.</li>' +
+          '<li>Your softness, and the playful, slightly childish corner of you that makes me laugh.</li>' +
+          '<li>Your sketches, and the way you see things.</li>' +
+          '<li>Your music, and the way it lives in you.</li>' +
+          '<li>The way you care about the people around you.</li>' +
+          '<li>The way you make me feel calm just by being there.</li>' +
+          '<li>The way you love sleep. Honestly, it is adorable.</li>' +
+          '<li>The fact that you are my peace and my safe place.</li>' +
+        '</ul>'
+    },
+    {
+      title: 'Our story',
+      body:
+        '<p>On 15 December 2025, Sangee introduced me to you. I had told her I wanted a partner; I did not expect the universe to answer quite so literally.</p>' +
+        '<p>I still smile at our first meeting. You were shy, and then you ran away — and somehow that became the beginning of everything.</p>' +
+        '<p>On 14 January 2026, we began. Since then, ordinary days have had you in them, which is the whole difference.</p>' +
+        '<p>On 10 May 2026, we became “online married” — a small, silly, entirely ours kind of milestone. I do not need a certificate to know what I feel.</p>' +
+        '<p>And on 14 January 2027, we will have our first anniversary. One whole year of us. I am already looking forward to it.</p>' +
+        '<p>That is the story so far. I am not in a hurry for it to be finished.</p>' +
+        '<div class="letter-editable"><strong>For Piyush to complete</strong>Add one small detail from the beginning that you want Mehak to remember here.</div>'
+    },
+    {
+      title: 'A letter for our future',
+      body:
+        '<p>Mehak,</p>' +
+        '<p>I do not know every detail of what is ahead. But I know who I want in the frame.</p>' +
+        '<p>I want ordinary mornings with you. I want the good news and the bad news to arrive to the same person. I want to watch you sketch, listen to your music, and learn the small things that make you feel loved.</p>' +
+        '<p>I want to reach 14 January 2027 and celebrate one year of us — then keep going, one year at a time.</p>' +
+        '<p>No grand promises I cannot keep. Just this: I am choosing you, again and again, in the everyday.</p>' +
+        '<div class="letter-editable"><strong>For Piyush to complete</strong>Add a future wish in your own words here.</div>'
+    },
+    {
+      title: 'My personal letter to you',
+      body:
+        '<p>My dearest Mehak,</p>' +
+        '<div class="letter-editable"><strong>For Piyush to complete</strong>This page is yours. Replace this note with your personal letter to Mehak — write it the way you would say it out loud, not the way a website would.</div>' +
+        '<p>If you are reading this and the words above are still waiting to be written, know this much is true: this museum exists because of you. Every room is a way of saying something I do not always say well.</p>' +
+        '<p>You are my peace, my safe place, and the person I want to come home to — in every sense of the phrase.</p>'
+    }
+  ];
+
+  function renderLetters(){
+    const grid = $('#letterGrid');
+    grid.innerHTML = '';
+    LETTERS.forEach((letter, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'envelope';
+      button.innerHTML =
+        '<span class="envelope__flap" aria-hidden="true"></span>' +
+        '<span class="envelope__seal" aria-hidden="true">M</span>' +
+        '<span class="envelope__no">Letter No. ' + pad(index + 1) + '</span>' +
+        '<span class="envelope__title">' + letter.title + '</span>' +
+        '<span class="envelope__open">Read the letter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>';
+      button.addEventListener('click', () => openLetter(index));
+      grid.appendChild(button);
+    });
+  }
+
+  function openLetter(index){
+    const letter = LETTERS[index];
+    openModal(
+      '<div class="letter-view">' +
+        '<div class="letter-view__meta"><span>The Letter Archive</span><span>No. ' + pad(index + 1) + ' of ' + pad(LETTERS.length) + '</span></div>' +
+        '<h2 class="letter-view__title" id="modalTitle">' + letter.title + '</h2>' +
+        '<div class="letter-view__rule" aria-hidden="true"></div>' +
+        '<div class="letter-view__body">' + letter.body + '</div>' +
+        '<p class="letter-sign">— Piyush</p>' +
+        '<div class="letter-view__footer">' +
+          '<span>Kept in the Letter Archive</span>' +
+          '<button class="text-btn" type="button" data-modal-close>Return to the archive <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>' +
+        '</div>' +
+      '</div>',
+      { dialogClass: 'modal__dialog--letter' }
+    );
+  }
+
+  renderLetters();
+
+  /* ---------- garden ---------- */
+  const BOUQUETS = {
+    roses: {
+      name: 'Roses', kind: 'rose', no: '01', swatch: '#D9A3B8',
+      message: 'Roses feel almost too obvious for you — but I like obvious things when they are true. You are my peace, Mehak. The softest, surest part of my life. If a room full of roses could say that, I would fill an entire museum.'
+    },
+    tulips: {
+      name: 'Tulips', kind: 'tulip', no: '02', swatch: '#E8BFD0',
+      message: 'Tulips always look like they are mid-thought — a little playful, a little shy, entirely their own thing. That is what I love about you: the way you can be gentle and mischievous at once, and still be the calmest place I know.'
+    },
+    sunflowers: {
+      name: 'Sunflowers', kind: 'sunflower', no: '03', swatch: '#F0E0AE',
+      message: 'Sunflowers turn toward the light without being asked. You do that to a room. You make ordinary days warmer just by being in them — and you do it so naturally that I do not think you notice.'
+    },
+    lilies: {
+      name: 'Lilies', kind: 'lily', no: '04', swatch: '#F3E7EE',
+      message: 'Lilies are quiet, patient, and more beautiful the longer you look. Like you. Your patience, your understanding, the way you support me — those are the things I notice most, even when I do not say it enough.'
+    },
+    daisies: {
+      name: 'Daisies', kind: 'daisy', no: '05', swatch: '#FBF7F2',
+      message: 'Daisies are simple, happy little things — the kind that make a whole field feel like a good day. You have that effect on me. You make me smile without trying, and you make happiness feel uncomplicated.'
+    },
+    mixed: {
+      name: 'Mixed flowers', kind: 'mixed', no: '06', swatch: '#DCD3F0',
+      message: 'One flower could never hold all of you. So here is a little of everything: the softness, the playfulness, the patience, the light. A whole garden, because you deserve more than a single bloom.'
+    }
+  };
+
+  const BLOOM_SPOTS = [
+    { x: 210, y: 142, s: 1.04, r: -4 },
+    { x: 151, y: 177, s: 0.94, r: -13 },
+    { x: 269, y: 172, s: 0.94, r: 11 },
+    { x: 119, y: 231, s: 0.85, r: -18 },
+    { x: 301, y: 227, s: 0.85, r: 17 },
+    { x: 178, y: 245, s: 0.82, r: -7 },
+    { x: 244, y: 242, s: 0.82, r: 8 },
+    { x: 210, y: 205, s: 0.74, r: 2 },
+    { x: 210, y: 281, s: 0.66, r: 0 }
+  ];
+
+  function roseBloom(){
+    return '<g>' +
+      '<circle r="31" fill="#F1D7E0"/>' +
+      '<path d="M0-27c15 0 27 12 27 27S15 27 0 27-27 15-27 0-15-27 0-27z" fill="#E3B3C6"/>' +
+      '<path d="M0-19c11 0 19 8 19 19S11 19 0 19-19 11-19 0-11-19 0-19z" fill="#D79FB6"/>' +
+      '<path d="M0-11c7 0 12 5 12 11S7 11 0 11-12 6-12 0-7-11 0-11z" fill="#F7E5EC"/>' +
+      '<path d="M-3-3c3-4 8-2 7 3-1 4-6 5-8 2" fill="none" stroke="#BF8099" stroke-width="1.3" stroke-linecap="round"/>' +
+    '</g>';
+  }
+
+  function tulipBloom(){
+    return '<g>' +
+      '<path d="M-21-24c10-6 16 3 21 7 5-4 11-13 21-7 4 14-1 31-21 39-20-8-25-25-21-39z" fill="#E7BED0"/>' +
+      '<path d="M0-17c-7 9-7 27 0 39 8-9 9-27 0-39z" fill="#F6E4EB"/>' +
+      '<path d="M-21-24c8 9 15 15 21 18-8 3-16 3-23 0" fill="#D6A1B8" opacity=".5"/>' +
+      '<path d="M21-24c-8 9-15 15-21 18 8 3 16 3 23 0" fill="#D6A1B8" opacity=".35"/>' +
+    '</g>';
+  }
+
+  function sunflowerBloom(){
+    let petals = '';
+    for (let i = 0; i < 16; i += 1){
+      petals += '<ellipse cx="0" cy="-29" rx="7.5" ry="18" fill="' + (i % 2 ? '#F2E2B2' : '#EFDA9F') + '" transform="rotate(' + (i * 22.5) + ')"/>';
+    }
+    return '<g>' + petals +
+      '<circle r="18" fill="#6E5B6B"/>' +
+      '<circle r="13" fill="#7C6879"/>' +
+      '<circle r="7" fill="#8B7687"/>' +
+      '<circle cx="-4" cy="-3" r="1" fill="#A38FA0"/><circle cx="5" cy="2" r="1" fill="#A38FA0"/><circle cx="1" cy="7" r="1" fill="#A38FA0"/>' +
+    '</g>';
+  }
+
+  function lilyBloom(){
+    let petals = '';
+    for (let i = 0; i < 6; i += 1){
+      petals += '<path d="M0 0C-7-13-7-28 0-41C7-28 7-13 0 0Z" fill="#FCF6F9" stroke="#E7D3DD" stroke-width=".8" transform="rotate(' + (i * 60) + ')"/>';
+    }
+    return '<g>' + petals +
+      '<path d="M0 2c-2 8-8 14-13 17M0 2c0 9 0 16 2 21M0 2c3 8 9 13 14 16" stroke="#9CAF9F" stroke-width="1.2" fill="none"/>' +
+      '<circle cx="-13" cy="19" r="2" fill="#B98FA0"/><circle cx="2" cy="23" r="2" fill="#B98FA0"/><circle cx="14" cy="18" r="2" fill="#B98FA0"/>' +
+    '</g>';
+  }
+
+  function daisyBloom(){
+    let petals = '';
+    for (let i = 0; i < 14; i += 1){
+      petals += '<ellipse cx="0" cy="-22" rx="4.2" ry="14" fill="#FFFDFE" stroke="#EADDE5" stroke-width=".7" transform="rotate(' + (i * 25.71) + ')"/>';
+    }
+    return '<g>' + petals +
+      '<circle r="9" fill="#E8DDF0"/>' +
+      '<circle r="5" fill="#D7C7E4"/>' +
+      '<circle r="1.6" fill="#BFA9D2"/>' +
+    '</g>';
+  }
+
+  function bloomFor(kind){
+    if (kind === 'rose') return roseBloom();
+    if (kind === 'tulip') return tulipBloom();
+    if (kind === 'sunflower') return sunflowerBloom();
+    if (kind === 'lily') return lilyBloom();
+    return daisyBloom();
+  }
+
+  function bouquetSVG(key){
+    const bouquet = BOUQUETS[key];
+    const mixedKinds = ['rose', 'tulip', 'lily', 'daisy', 'rose', 'tulip', 'sunflower', 'daisy', 'rose'];
+    const kinds = BLOOM_SPOTS.map((spot, index) => {
+      if (bouquet.kind === 'mixed') return mixedKinds[index];
+      return bouquet.kind;
+    });
+
+    const stems = BLOOM_SPOTS.map((spot, index) => {
+      const startX = 210;
+      const startY = 352;
+      const controlX = (startX + spot.x) / 2 + (index % 2 ? 9 : -9);
+      const controlY = (startY + spot.y) / 2 + 8;
+      return '<path d="M' + startX + ' ' + startY + ' Q' + controlX + ' ' + controlY + ' ' + spot.x + ' ' + (spot.y + 18) + '" fill="none" stroke="' + (index % 3 === 0 ? '#8FAF9F' : '#A3BFB2') + '" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>';
+    }).join('');
+
+    const leaves = BLOOM_SPOTS.map((spot, index) => {
+      const midX = (210 + spot.x) / 2;
+      const midY = (352 + spot.y) / 2 + 12;
+      const dir = index % 2 ? 1 : -1;
+      return '<path d="M' + midX + ' ' + midY + ' q' + (18 * dir) + ' -12 ' + (32 * dir) + ' 2 q' + (-12 * dir) + ' 12 ' + (-32 * dir) + ' -2z" fill="' + (index % 2 ? '#B9D3C7' : '#A9C6B8') + '" opacity=".78"/>';
+    }).join('');
+
+    const blooms = BLOOM_SPOTS.map((spot, index) => {
+      return '<g transform="translate(' + spot.x + ' ' + spot.y + ') scale(' + spot.s + ') rotate(' + spot.r + ')">' +
+        '<g class="bloom" style="--d:' + (index * 0.085).toFixed(2) + 's">' + bloomFor(kinds[index]) + '</g>' +
+      '</g>';
+    }).join('');
+
+    const vase =
+      '<ellipse cx="210" cy="458" rx="88" ry="12" fill="rgba(56,49,61,.09)"/>' +
+      '<path d="M150 344h120l-11 96c-1 10-22 16-49 16s-48-6-49-16z" fill="#F6E9EE" stroke="#D8B7C5" stroke-width="1.2"/>' +
+      '<path d="M150 344h120l-4 18H154z" fill="#E8CED9"/>' +
+      '<path d="M177 372c-3 26-4 46 1 68" stroke="#FFFDFE" stroke-width="5" stroke-linecap="round" opacity=".55" fill="none"/>';
+
+    return '<svg viewBox="0 0 420 480" role="img" aria-label="A pastel bouquet of ' + bouquet.name.toLowerCase() + '">' +
+      stems + leaves + vase + blooms +
+    '</svg>';
+  }
+
+  let currentBouquet = 'roses';
+  function updateBouquet(key){
+    const bouquet = BOUQUETS[key];
+    if (!bouquet) return;
+    currentBouquet = key;
+    $('#bouquetArt').innerHTML = bouquetSVG(key);
+    $('#bouquetName').textContent = bouquet.name;
+    $('#bouquetNo').textContent = 'Bouquet No. ' + bouquet.no;
+    const message = $('#bouquetMessage');
+    message.textContent = bouquet.message;
+    message.classList.remove('is-changing');
+    void message.offsetWidth;
+    message.classList.add('is-changing');
+    $$('.bouquet-option').forEach(button => {
+      button.setAttribute('aria-selected', String(button.dataset.bouquet === key));
+    });
+  }
+
+  $$('.bouquet-option').forEach(button => {
+    button.addEventListener('click', () => updateBouquet(button.dataset.bouquet));
+  });
+  $('#anotherBouquet').addEventListener('click', () => {
+    const keys = Object.keys(BOUQUETS);
+    const next = keys[(keys.indexOf(currentBouquet) + 1) % keys.length];
+    updateBouquet(next);
+    const selected = $('.bouquet-option[aria-selected="true"]');
+    if (selected) selected.focus({ preventScroll: true });
+  });
+  updateBouquet('roses');
+
+  /* ---------- gift room ---------- */
+  const COMPLIMENTS = [
+    'You are the calmest place my mind knows.',
+    'You are patient in a way that makes me want to be gentler.',
+    'You understand me, even the parts I have not explained.',
+    'Your playfulness makes ordinary days feel lighter.',
+    'You are caring without keeping score.',
+    'You support me in ways you probably think are small.',
+    'You make me feel safe enough to be completely myself.',
+    'You have a beautiful mind — the sketches, the music, all of it.',
+    'You are my peace, Mehak.',
+    'You are the best thing about my ordinary days.'
+  ];
+
+  const REASONS = [
+    'Because you are my peace.',
+    'Because you understand me.',
+    'Because you are patient with me.',
+    'Because you care deeply.',
+    'Because you support me.',
+    'Because you make me laugh.',
+    'Because you love to sleep, and it is adorable.',
+    'Because you sketch the world differently.',
+    'Because your music is part of you.',
+    'Because you are my safe place.',
+    'Because you stayed.',
+    'Because you are you, Mehak.'
+  ];
+
+  const PENGUIN_LINES = [
+    'You are, objectively, the cutest penguin in the museum.',
+    'Waddle over here. I miss you.',
+    'This penguin has one job: to remind you that you are loved.',
+    'You are the only penguin I would build a whole museum for.',
+    'The penguin has no more wisdom. It just thinks you are wonderful.',
+    'If being adorable were a sport, you would be unbeatable. The penguin agrees.'
+  ];
+
+  const PENGUIN_ART =
+    '<svg viewBox="0 0 160 190" aria-hidden="true">' +
+      '<ellipse cx="80" cy="179" rx="45" ry="6" fill="rgba(56,49,61,.12)"/>' +
+      '<path d="M32 88c0-41 22-67 48-67s48 26 48 67v50c0 24-21 38-48 38s-48-14-48-38z" fill="#3E3545"/>' +
+      '<ellipse cx="80" cy="124" rx="32" ry="47" fill="#FFFDFE"/>' +
+      '<ellipse cx="43" cy="119" rx="11" ry="27" fill="#3E3545" transform="rotate(12 43 119)"/>' +
+      '<ellipse cx="117" cy="119" rx="11" ry="27" fill="#3E3545" transform="rotate(-12 117 119)"/>' +
+      '<ellipse cx="66" cy="103" rx="3.1" ry="4" fill="#38313D"/>' +
+      '<ellipse cx="94" cy="103" rx="3.1" ry="4" fill="#38313D"/>' +
+      '<ellipse cx="55" cy="114" rx="7" ry="4" fill="#EBCBD8"/>' +
+      '<ellipse cx="105" cy="114" rx="7" ry="4" fill="#EBCBD8"/>' +
+      '<path d="M72 112h16l-8 10z" fill="#E8CE9B"/>' +
+      '<path d="M52 143c16 8 40 8 56 0" fill="none" stroke="#DCD3F0" stroke-width="8" stroke-linecap="round"/>' +
+      '<path d="M56 150c-8 10-6 22 4 26" fill="none" stroke="#DCD3F0" stroke-width="7" stroke-linecap="round"/>' +
+      '<ellipse cx="64" cy="175" rx="11" ry="5" fill="#DCAFC2"/>' +
+      '<ellipse cx="96" cy="175" rx="11" ry="5" fill="#DCAFC2"/>' +
+    '</svg>';
+
+  function openPresent(){
+    openModal(
+      '<p class="eyebrow">Gift No. 01 · The Gift Room</p>' +
+      '<h2 class="sheet-title" id="modalTitle">The Wrapped Present</h2>' +
+      '<p class="sheet-lede">A small box with a ribbon I tied badly on purpose. It is not the box that matters.</p>' +
+      '<div class="sheet-rule"></div>' +
+      '<div class="present-stage" id="presentStage">' +
+        '<div class="present-art">' +
+          '<svg viewBox="0 0 260 235" aria-hidden="true">' +
+            '<ellipse cx="130" cy="218" rx="74" ry="10" fill="rgba(56,49,61,.1)"/>' +
+            '<rect x="58" y="112" width="144" height="96" rx="2" fill="#F1D8E2"/>' +
+            '<rect x="58" y="112" width="144" height="96" rx="2" fill="none" stroke="#D9B5C5" stroke-width="1"/>' +
+            '<rect class="present-ribbon-v" x="121" y="112" width="18" height="96" fill="#D9A9BD"/>' +
+            '<g class="present-lid">' +
+              '<rect x="46" y="86" width="168" height="34" rx="2" fill="#E8C3D1"/>' +
+              '<rect x="46" y="86" width="168" height="34" rx="2" fill="none" stroke="#D4A4B9" stroke-width="1"/>' +
+              '<rect x="121" y="86" width="18" height="34" fill="#D9A9BD"/>' +
+              '<path d="M130 88c-8-16-26-18-30-8-4 9 14 12 30 8z" fill="#DCD3F0" stroke="#C6B8DF" stroke-width=".8"/>' +
+              '<path d="M130 88c8-16 26-18 30-8 4 9-14 12-30 8z" fill="#DCD3F0" stroke="#C6B8DF" stroke-width=".8"/>' +
+              '<circle cx="130" cy="88" r="6" fill="#C4B2DB"/>' +
+            '</g>' +
+            '<path d="M80 128v64" stroke="rgba(255,255,255,.4)" stroke-width="5" stroke-linecap="round"/>' +
+          '</svg>' +
+        '</div>' +
+        '<p class="present-hint" id="presentHint">A ribbon, a box, and something I could not wrap.</p>' +
+        '<button class="btn" type="button" id="unwrapPresent">Unwrap the present</button>' +
+        '<div class="present-reveal"><p>Inside is the thing I cannot wrap: the quiet I feel when you are near. You are my safe place, Mehak. This box is far too small for that.</p><span>— Piyush</span></div>' +
+      '</div>',
+      {
+        onOpen: panel => {
+          const stage = $('#presentStage', panel);
+          const button = $('#unwrapPresent', panel);
+          button.addEventListener('click', () => {
+            stage.classList.add('is-unwrapped');
+            button.hidden = true;
+            $('#presentHint', panel).hidden = true;
+          });
+        }
+      }
+    );
+  }
+
+  function openCompliments(){
+    openModal(
+      '<p class="eyebrow">Gift No. 02 · The Gift Room</p>' +
+      '<h2 class="sheet-title" id="modalTitle">A Collection of Compliments</h2>' +
+      '<p class="sheet-lede">A small deck of true things. Draw one whenever you need it.</p>' +
+      '<div class="sheet-rule"></div>' +
+      '<div class="draw-card" id="drawCard"><span class="draw-card__mark" aria-hidden="true">“</span><p id="drawText">' + COMPLIMENTS[0] + '</p></div>' +
+      '<div class="draw-meta"><button class="btn" type="button" id="nextCompliment">Another compliment</button><span id="drawCount">01 / ' + pad(COMPLIMENTS.length) + '</span></div>',
+      {
+        onOpen: panel => {
+          let index = 0;
+          const text = $('#drawText', panel);
+          const card = $('#drawCard', panel);
+          const counter = $('#drawCount', panel);
+          $('#nextCompliment', panel).addEventListener('click', () => {
+            index = (index + 1) % COMPLIMENTS.length;
+            text.textContent = COMPLIMENTS[index];
+            counter.textContent = pad(index + 1) + ' / ' + pad(COMPLIMENTS.length);
+            card.classList.remove('is-changing');
+            void card.offsetWidth;
+            card.classList.add('is-changing');
+          });
+        }
+      }
+    );
+  }
+
+  function openJar(){
+    openModal(
+      '<p class="eyebrow">Gift No. 03 · The Gift Room</p>' +
+      '<h2 class="sheet-title" id="modalTitle">A Jar of Reasons</h2>' +
+      '<p class="sheet-lede">Folded notes, one reason each. There are more in here than you think.</p>' +
+      '<div class="sheet-rule"></div>' +
+      '<div class="jar-stage">' +
+        '<div class="jar-stage__art">' +
+          '<svg viewBox="0 0 120 150" aria-hidden="true">' +
+            '<ellipse cx="60" cy="142" rx="35" ry="5" fill="rgba(56,49,61,.1)"/>' +
+            '<path d="M24 44h72l6 18v64c0 8-6 13-14 13H32c-8 0-14-5-14-13V62z" fill="rgba(201,228,223,.55)" stroke="#A8C3BB" stroke-width="1.2"/>' +
+            '<path d="M26 32h68v12H26z" fill="#DCD3F0" stroke="#C4B7DD" stroke-width="1"/>' +
+            '<path d="M23 64h74" stroke="#A8C3BB" stroke-width="1" opacity=".7"/>' +
+            '<rect x="40" y="74" width="18" height="30" rx="1" fill="#FFFDFD" transform="rotate(-9 49 89)" stroke="#E3D5DD"/>' +
+            '<rect x="60" y="78" width="17" height="28" rx="1" fill="#FFFDFD" transform="rotate(7 68 92)" stroke="#E3D5DD"/>' +
+            '<rect x="48" y="110" width="25" height="16" rx="1" fill="#F4E4EB" transform="rotate(-4 60 118)" stroke="#E3D5DD"/>' +
+            '<path d="M36 52v64" stroke="rgba(255,255,255,.6)" stroke-width="4" stroke-linecap="round"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="jar-note" id="jarNote"><span>Note 01 of ' + pad(REASONS.length) + '</span><p id="jarText">' + REASONS[0] + '</p></div>' +
+        '<button class="btn" type="button" id="drawReason">Pull a reason</button>' +
+      '</div>',
+      {
+        onOpen: panel => {
+          let index = 0;
+          const text = $('#jarText', panel);
+          const note = $('#jarNote', panel);
+          const label = note.querySelector('span');
+          $('#drawReason', panel).addEventListener('click', () => {
+            index = (index + 1) % REASONS.length;
+            text.textContent = REASONS[index];
+            label.textContent = 'Note ' + pad(index + 1) + ' of ' + pad(REASONS.length);
+            note.classList.remove('is-drawing');
+            void note.offsetWidth;
+            note.classList.add('is-drawing');
+          });
+        }
+      }
+    );
+  }
+
+  function openHiddenPhoto(){
+    const photo = photoData[0];
+    const frame = photo
+      ? '<div class="hidden-photo">' +
+          '<img src="' + photo.src + '" alt="A favourite photograph from Piyush and Mehak\'s collection">' +
+          '<div class="hidden-photo__veil" id="photoVeil"><p>A favourite of mine.<br>Are you ready?</p><button class="btn" type="button" id="revealHidden">Reveal the photograph</button></div>' +
+        '</div>' +
+        '<p class="hidden-photo__caption">One I keep coming back to.</p>'
+      : '<div class="hidden-photo"><div class="hidden-photo__empty"><p>This frame is waiting for my favourite photograph of you.</p></div></div>';
+
+    openModal(
+      '<p class="eyebrow">Gift No. 04 · The Gift Room</p>' +
+      '<h2 class="sheet-title" id="modalTitle">A Hidden Photograph</h2>' +
+      '<p class="sheet-lede">A small curtain, and one photograph I would keep in my pocket if I could.</p>' +
+      '<div class="sheet-rule"></div>' + frame,
+      {
+        onOpen: panel => {
+          const button = $('#revealHidden', panel);
+          if (!button) return;
+          button.addEventListener('click', () => {
+            $('#photoVeil', panel).classList.add('is-open');
+          });
+        }
+      }
+    );
+  }
+
+  function openSurprise(){
+    openModal(
+      '<p class="eyebrow">Gift No. 05 · The Gift Room</p>' +
+      '<h2 class="sheet-title" id="modalTitle">A Surprise Message</h2>' +
+      '<p class="sheet-lede">Sealed, because a surprise should at least pretend to be mysterious.</p>' +
+      '<div class="sheet-rule"></div>' +
+      '<div class="sealed-note" id="sealedNote">' +
+        '<div class="sealed-note__closed"><span class="sealed-note__seal" aria-hidden="true">P</span><p>No hints. That would ruin it.</p><button class="btn" type="button" id="openSurprise">Break the seal</button></div>' +
+        '<div class="sealed-note__content"><p>Here is the surprise: there isn’t one. I just wanted another way to tell you that I love you. That is it. That is the whole trick.</p><span>— Piyush</span></div>' +
+      '</div>',
+      {
+        onOpen: panel => {
+          $('#openSurprise', panel).addEventListener('click', () => {
+            $('#sealedNote', panel).classList.add('is-open');
+          });
+        }
+      }
+    );
+  }
+
+  function openCoupon(){
+    openModal(
+      '<p class="eyebrow">Gift No. 06 · The Gift Room</p>' +
+      '<h2 class="sheet-title" id="modalTitle">A Gift Coupon</h2>' +
+      '<p class="sheet-lede">No expiry. No conditions. Just say the word.</p>' +
+      '<div class="sheet-rule"></div>' +
+      '<div class="coupon" id="coupon">' +
+        '<div class="coupon__stub"><span>Gift</span><b>M</b><span>Coupon</span></div>' +
+        '<div class="coupon__body"><p class="eyebrow">Redeemable for</p><h3>One slow morning</h3><p>No alarms, no plans, nowhere to be. You decide when it starts — and when it ends.</p><p class="coupon__terms">One use · No expiry · Redeemable with Piyush</p></div>' +
+        '<div class="coupon__stamp">Redeemed</div>' +
+      '</div>' +
+      '<div class="sheet-actions"><button class="btn" type="button" id="redeemCoupon">Redeem this coupon</button><span class="sheet-meta" id="couponNote">Keep it somewhere safe.</span></div>',
+      {
+        onOpen: panel => {
+          const button = $('#redeemCoupon', panel);
+          button.addEventListener('click', () => {
+            $('#coupon', panel).classList.add('is-redeemed');
+            button.textContent = 'Redeemed with love';
+            button.disabled = true;
+            $('#couponNote', panel).textContent = 'Noted. I owe you a slow morning.';
+          });
+        }
+      }
+    );
+  }
+
+  function openPenguin(){
+    openModal(
+      '<p class="eyebrow">Gift No. 07 · The Gift Room</p>' +
+      '<h2 class="sheet-title" id="modalTitle">A Penguin Surprise</h2>' +
+      '<p class="sheet-lede">For my penguin. Poke it gently — it is doing its best.</p>' +
+      '<div class="sheet-rule"></div>' +
+      '<div class="penguin-stage" id="penguinStage">' +
+        '<div class="penguin-stage__art">' + PENGUIN_ART + '</div>' +
+        '<p class="penguin-message" id="penguinMessage">' + PENGUIN_LINES[0] + '</p>' +
+        '<button class="btn" type="button" id="pokePenguin">Poke the penguin</button>' +
+      '</div>',
+      {
+        onOpen: panel => {
+          let index = 0;
+          const stage = $('#penguinStage', panel);
+          const message = $('#penguinMessage', panel);
+          $('#pokePenguin', panel).addEventListener('click', () => {
+            index = (index + 1) % PENGUIN_LINES.length;
+            message.textContent = PENGUIN_LINES[index];
+            message.classList.remove('is-changing');
+            stage.classList.remove('is-wiggle');
+            void message.offsetWidth;
+            message.classList.add('is-changing');
+            stage.classList.add('is-wiggle');
+            window.setTimeout(() => stage.classList.remove('is-wiggle'), 700);
+          });
+        }
+      }
+    );
+  }
+
+  const GIFTS = {
+    present: openPresent,
+    compliments: openCompliments,
+    jar: openJar,
+    photo: openHiddenPhoto,
+    surprise: openSurprise,
+    coupon: openCoupon,
+    penguin: openPenguin
+  };
+
+  $$('[data-gift]').forEach(button => {
+    button.addEventListener('click', () => {
+      const openGift = GIFTS[button.dataset.gift];
+      if (openGift) openGift();
+    });
+  });
+
+  /* ---------- final exhibit ---------- */
+  const FINAL_LETTER =
+    '<p>Mehak,</p>' +
+    '<p>If you have walked through every room, then you already know what this museum is trying to say. But I wanted to say it once more, plainly, at the end.</p>' +
+    '<p>You are my peace. My safe place. The person I want to tell everything to.</p>' +
+    '<p>I do not know what every year will look like. I know I want you in them.</p>' +
+    '<div class="letter-editable"><strong>For Piyush to complete</strong>Replace this paragraph with the words you most want her to keep.</div>' +
+    '<p>Yours, always,</p>';
+
+  $('#openFinalLetter').addEventListener('click', () => {
+    openModal(
+      '<div class="letter-view">' +
+        '<div class="letter-view__meta"><span>The Final Exhibit</span><span>The last letter</span></div>' +
+        '<h2 class="letter-view__title" id="modalTitle">For Mehak</h2>' +
+        '<div class="letter-view__rule" aria-hidden="true"></div>' +
+        '<div class="letter-view__body">' + FINAL_LETTER + '</div>' +
+        '<p class="letter-sign">— Piyush</p>' +
+        '<div class="letter-view__footer">' +
+          '<span>Some things live with us.</span>' +
+          '<button class="text-btn" type="button" data-modal-close>Close the letter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>' +
+        '</div>' +
+      '</div>',
+      { dialogClass: 'modal__dialog--letter' }
+    );
+  });
+
+  /* ---------- anniversary countdown ---------- */
+  function updateCountdown(){
+    const target = new Date(2027, 0, 14, 0, 0, 0);
+    const now = new Date();
+    const difference = target.getTime() - now.getTime();
+    const output = $('#countdownDays');
+    if (!output) return;
+    if (difference <= 0){
+      output.textContent = 'Now';
+      return;
+    }
+    output.textContent = String(Math.ceil(difference / 86400000));
+  }
+  updateCountdown();
+  window.setInterval(updateCountdown, 3600000);
+
+  /* ---------- keyboard controls ---------- */
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape'){
+      if (!modal.hidden){ closeModal(); return; }
+      if (!lightbox.hidden){ closeLightbox(); return; }
+      if (!$('#memoryView').hidden){ closeView('memoryView'); return; }
+      if (!$('#videoView').hidden){ closeView('videoView'); return; }
+      if (menuOpen) setMenu(false);
+      return;
+    }
+    if (!lightbox.hidden && photoData.length > 1){
+      if (event.key === 'ArrowLeft'){
+        event.preventDefault();
+        stepLightbox(-1);
+      } else if (event.key === 'ArrowRight'){
+        event.preventDefault();
+        stepLightbox(1);
+      }
+    }
+  });
+
+})();
+
+
+</script>
+</body>
+</html>
